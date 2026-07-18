@@ -1,0 +1,39 @@
+# Dépendances & environnements
+.env
+.env.*
+!.env.example
+vendor/
+node_modules/
+
+# Logs & caches
+*.log
+*.cache
+php_server_*.log
+.phpunit.result.cache
+
+# Fichiers temporaires / debug local
+cookies.txt
+*_headers.txt
+*_headers2.txt
+login_out*.html
+post_out.html
+form.html
+resp.html
+p1.html
+t1.html
+t2.html
+t3.html
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+.claude/
+
+# Uploads utilisateur (hors assets versionnés du site)
+uploads/
+admin/uploads/

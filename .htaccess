@@ -1,0 +1,46 @@
+# IAT Niger — URLs propres & sécurité (Apache / XAMPP)
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /iatniger/
+
+  # Fichiers/dossiers réels servis directement
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # /formations/licence -> formations.php?niveau=licence
+  RewriteRule ^formations/(niveau-moyen|licence|master|doctorat)/?$ formations.php?niveau=$1 [L,QSA]
+
+  # /formation/genie-civil -> formation.php?slug=genie-civil
+  RewriteRule ^formation/([a-z0-9-]+)/?$ formation.php?slug=$1 [L,QSA]
+
+  # /actualites/mon-article -> actualite.php?slug=mon-article
+  RewriteRule ^actualites/([a-z0-9-]+)/?$ actualite.php?slug=$1 [L,QSA]
+
+  # Pages sans extension -> .php
+  RewriteCond %{REQUEST_FILENAME}.php -f
+  RewriteRule ^([a-z0-9-]+)/?$ $1.php [L,QSA]
+</IfModule>
+
+# En-têtes de sécurité
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+# Cache statique
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/webp "access plus 1 month"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType text/css "access plus 1 week"
+  ExpiresByType application/javascript "access plus 1 week"
+</IfModule>
+
+ErrorDocument 404 /iatniger/404.php

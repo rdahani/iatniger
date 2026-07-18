@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /config/
+Disallow: /includes/
+Disallow: /constants/
+Disallow: /database/
+
+Sitemap: http://localhost/iatniger/sitemap.php
