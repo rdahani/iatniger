@@ -135,7 +135,7 @@ admin_head('Accueil');
 <div class="admin-layout">
   <?php admin_sidebar('accueil'); ?>
   <main class="admin-main">
-    <div class="admin-header"><h1 class="h2">Page d'accueil</h1></div>
+    <div class="admin-header"><h1 class="h2">Page d'accueil</h1><?= admin_voir_page('', "Voir l'accueil") ?></div>
 
     <?php admin_flash($notice, $erreur); ?>
 

@@ -166,6 +166,38 @@ function contenu_type_config(string $type): array
     ];
 }
 
+/** Page publique correspondant au contenu édité (pour le bouton « Voir la page »). */
+function contenu_page_publique(string $type, ?string $groupe): ?string
+{
+    $map_types = [
+        'faq' => 'faq', 'partenaire' => 'partenaires', 'galerie' => 'galerie',
+        'video' => 'web-tv', 'document' => 'telechargements', 'temoignage' => '',
+    ];
+    if (array_key_exists($type, $map_types)) {
+        return $map_types[$type];
+    }
+    $g = (string) $groupe;
+    if ($g === '') {
+        return null;
+    }
+    if (str_starts_with($g, 'a-propos')) {
+        return 'a-propos';
+    }
+    if (str_starts_with($g, 'vie-etudiante') || str_starts_with($g, 'vie-')) {
+        return 'vie-etudiante';
+    }
+    if (str_starts_with($g, 'csp')) {
+        return 'csp-algoza';
+    }
+    if (str_starts_with($g, 'admission')) {
+        return 'admission';
+    }
+    if (str_starts_with($g, 'accueil')) {
+        return '';
+    }
+    return null;
+}
+
 /** Détermine la clé de la barre latérale à mettre en surbrillance. */
 function contenu_sidebar_actif(string $type, ?string $groupe, array $config): string
 {
@@ -536,9 +568,15 @@ admin_head($config['label']);
     <?php else : ?>
       <div class="admin-header">
         <h1 class="h2"><?= e($config['label']) ?><?= $groupe !== null ? ' — ' . e($groupe) : '' ?></h1>
-        <?php if (!$est_section_agregee) : ?>
-        <a class="btn btn-primary" href="<?= url('admin/contenu.php?type=' . rawurlencode($type) . ($groupe !== null ? '&groupe=' . rawurlencode($groupe) : '') . '&action=nouvelle') ?>"><?= icon('plus', 16) ?> Ajouter <?= e($config['nouveau']) ?></a>
-        <?php endif; ?>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <?php $page_publique = contenu_page_publique($type, $groupe);
+          if ($page_publique !== null) {
+              echo admin_voir_page($page_publique);
+          } ?>
+          <?php if (!$est_section_agregee) : ?>
+          <a class="btn btn-primary" href="<?= url('admin/contenu.php?type=' . rawurlencode($type) . ($groupe !== null ? '&groupe=' . rawurlencode($groupe) : '') . '&action=nouvelle') ?>"><?= icon('plus', 16) ?> Ajouter <?= e($config['nouveau']) ?></a>
+          <?php endif; ?>
+        </div>
       </div>
 
       <?php if ($est_section_agregee) : ?>

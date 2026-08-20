@@ -153,7 +153,10 @@ admin_head('Actualités');
     <?php else : ?>
       <div class="admin-header">
         <h1 class="h2">Actualités</h1>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        <?= admin_voir_page('actualites') ?>
         <a class="btn btn-primary" href="<?= url('admin/actualites.php?action=nouvelle') ?>"><?= icon('plus', 16) ?> Nouvelle actualité</a>
+        </div>
       </div>
       <div class="table-wrap">
         <table class="table">

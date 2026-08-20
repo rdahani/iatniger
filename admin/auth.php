@@ -259,7 +259,9 @@ function admin_sidebar(string $actif): void
     $groupes = [
         'Pilotage' => [
             'dashboard' => ['dashboard.php', 'layout-dashboard', 'Tableau de bord', 'dashboard'],
+            'apercu' => ['apercu.php', 'eye', 'Aperçu du site', 'dashboard'],
             'parametres' => ['parametres.php', 'settings', 'Paramètres du site', 'parametres'],
+            'navigation' => ['navigation.php', 'menu', 'Navigation & menu', 'parametres'],
             'pages' => ['pages.php', 'file-text', 'Pages & SEO', 'pages'],
             'utilisateurs' => ['utilisateurs.php', 'users', 'Utilisateurs & droits', 'utilisateurs'],
         ],

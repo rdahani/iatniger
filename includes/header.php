@@ -160,33 +160,24 @@ $site_facebook = setting('site_facebook', SITE_FACEBOOK);
           <div class="dropdown mega">
             <div class="mega-wrap">
               <div class="mega-grid">
-                <a class="mega-card" href="<?= url('formations/niveau-moyen') ?>">
-                  <span class="mega-icon"><?= icon('book-open', 22) ?></span>
-                  <strong>Niveau Moyen</strong>
-                  <small>Bac Pro &amp; Technique — dès le BEPC, en 3 ans</small>
+                <?php
+                /* Cartes du mega-menu : suivent le catalogue des niveaux (admin → Formations). */
+                $mega_icones = ['niveau-moyen' => 'book-open', 'licence' => 'graduation-cap', 'master' => 'award', 'doctorat' => 'flask'];
+                foreach (niveaux_catalogue() as $mega_slug => $mega_niv) :
+                    ?>
+                <a class="mega-card" href="<?= url('formations/' . $mega_slug) ?>">
+                  <span class="mega-icon"><?= icon($mega_icones[$mega_slug] ?? 'graduation-cap', 22) ?></span>
+                  <strong><?= e($mega_niv['titre']) ?></strong>
+                  <?php if (!empty($mega_niv['sous_titre'])) : ?><small><?= e($mega_niv['sous_titre']) ?></small><?php endif; ?>
                 </a>
-                <a class="mega-card" href="<?= url('formations/licence') ?>">
-                  <span class="mega-icon"><?= icon('graduation-cap', 22) ?></span>
-                  <strong>Licences</strong>
-                  <small>13 filières BTS &amp; Licence (LMD)</small>
-                </a>
-                <a class="mega-card" href="<?= url('formations/master') ?>">
-                  <span class="mega-icon"><?= icon('award', 22) ?></span>
-                  <strong>Masters</strong>
-                  <small>9 masters pro, accrédités CAMES</small>
-                </a>
-                <a class="mega-card" href="<?= url('formations/doctorat') ?>">
-                  <span class="mega-icon"><?= icon('flask', 22) ?></span>
-                  <strong>Master de Recherche &amp; Doctorat</strong>
-                  <small>Partenariat Université de Douala</small>
-                </a>
+                <?php endforeach; ?>
               </div>
               <a class="mega-promo" href="<?= url('admission#preinscription') ?>">
-                <img src="<?= asset('img/etudiants/etudiant-laptop.jpg') ?>" alt="" loading="lazy" width="371" height="372">
+                <img src="<?= asset('img/' . ltrim(cms_texte('nav_mega_promo_image', 'etudiants/etudiant-laptop.jpg'), '/')) ?>" alt="" loading="lazy" width="371" height="372">
                 <span class="mega-promo-body">
-                  <span class="badge badge-accent">Inscriptions ouvertes</span>
-                  <strong>Rejoignez la promotion 2026-2027</strong>
-                  <small>Préinscription gratuite en ligne <?= icon('arrow-right', 14) ?></small>
+                  <span class="badge badge-accent"><?= e(cms_texte('nav_mega_promo_badge', 'Inscriptions ouvertes')) ?></span>
+                  <strong><?= e(cms_texte('nav_mega_promo_titre', 'Rejoignez la promotion 2026-2027')) ?></strong>
+                  <small><?= e(cms_texte('nav_mega_promo_texte', 'Préinscription gratuite en ligne')) ?> <?= icon('arrow-right', 14) ?></small>
                 </span>
               </a>
             </div>

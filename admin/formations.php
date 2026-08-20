@@ -142,7 +142,7 @@ admin_head('Formations');
 <div class="admin-layout">
   <?php admin_sidebar('formations'); ?>
   <main class="admin-main">
-    <div class="admin-header"><h1 class="h2">Formations</h1></div>
+    <div class="admin-header"><h1 class="h2">Formations</h1><?= admin_voir_page('formations') ?></div>
 
     <?php admin_flash($notice, $erreur); ?>
 

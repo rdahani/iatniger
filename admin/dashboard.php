@@ -183,6 +183,7 @@ if (!$is_local && admin_can('utilisateurs')) {
           <?php else : ?>
           <span class="dash-chip dash-chip-ok"><?= icon('check', 14) ?> File d'attente à jour</span>
           <?php endif; ?>
+          <a class="dash-chip" href="<?= url('admin/apercu.php') ?>"><?= icon('eye', 14) ?> Aperçu guidé</a>
           <a class="dash-chip" href="<?= url() ?>" target="_blank"><?= icon('external-link', 14) ?> Voir le site</a>
         </div>
       </div>
@@ -387,6 +388,41 @@ if (!$is_local && admin_can('utilisateurs')) {
       </section>
       <?php endif; ?>
     </div>
+
+    <!-- Où modifier quoi ? -->
+    <section class="dash-panel reveal-dash" style="margin-bottom: 1.25rem;">
+      <div class="dash-panel-head">
+        <div>
+          <h2>Où modifier quoi ?</h2>
+          <p class="caption">Chaque partie du site et l'écran admin qui permet de la changer</p>
+        </div>
+        <a class="dash-link" href="<?= url('admin/apercu.php') ?>">Aperçu guidé <?= icon('arrow-right', 14) ?></a>
+      </div>
+      <?php
+        $guide_zones = [
+            ['perm' => 'accueil', 'icon' => 'home', 'zone' => "Page d'accueil", 'detail' => 'Hero, fondateur, stats, CSP, diaporama', 'href' => 'admin/accueil.php'],
+            ['perm' => 'formations', 'icon' => 'graduation-cap', 'zone' => 'Formations & menu', 'detail' => 'Niveaux, filières, cartes du mega-menu', 'href' => 'admin/formations.php'],
+            ['perm' => 'parametres', 'icon' => 'menu', 'zone' => 'Bandeau du menu', 'detail' => 'Promo « Inscriptions ouvertes »', 'href' => 'admin/navigation.php'],
+            ['perm' => 'actualites', 'icon' => 'newspaper', 'zone' => 'Actualités', 'detail' => 'Articles du site', 'href' => 'admin/actualites.php'],
+            ['perm' => 'a-propos', 'icon' => 'book-open', 'zone' => 'À propos', 'detail' => 'Mission, valeurs, histoire, direction', 'href' => 'admin/contenu.php?type=section&groupe=a-propos'],
+            ['perm' => 'csp', 'icon' => 'school', 'zone' => 'CSP Algoza', 'detail' => 'Atouts, niveaux, tarifs', 'href' => 'admin/contenu.php?type=section&groupe=csp-algoza'],
+            ['perm' => 'parametres', 'icon' => 'settings', 'zone' => 'Coordonnées & footer', 'detail' => 'Téléphones, e-mail, adresse', 'href' => 'admin/parametres.php'],
+            ['perm' => 'pages', 'icon' => 'file-text', 'zone' => 'SEO des pages', 'detail' => 'Titres, descriptions, textes des heros', 'href' => 'admin/pages.php'],
+        ];
+        ?>
+      <div class="dash-health">
+        <?php foreach ($guide_zones as $g) :
+            if (!admin_can($g['perm'])) {
+                continue;
+            } ?>
+        <a class="dash-health-item" href="<?= url($g['href']) ?>" title="<?= e($g['detail']) ?>">
+          <span class="dash-health-icon"><?= icon($g['icon'], 18) ?></span>
+          <span class="dash-health-label"><?= e($g['zone']) ?><br><small style="font-weight: 400; opacity: 0.75;"><?= e($g['detail']) ?></small></span>
+          <?= icon('arrow-right', 15) ?>
+        </a>
+        <?php endforeach; ?>
+      </div>
+    </section>
 
     <!-- Santé contenu + raccourcis -->
     <div class="dash-columns">

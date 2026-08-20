@@ -287,6 +287,12 @@ function admin_icon_field(string $name, string $value = '', array $opts = []): v
     <?php
 }
 
+/** Bouton « Voir la page » : ouvre la page publique correspondante dans un onglet. */
+function admin_voir_page(string $chemin, string $label = 'Voir la page'): string
+{
+    return '<a class="btn btn-outline" href="' . e(url($chemin)) . '" target="_blank" rel="noopener">' . icon('eye', 16) . ' ' . e($label) . '</a>';
+}
+
 /** En-tête de liste CRUD standard. */
 function admin_list_header(string $titre, string $new_url, string $new_label = 'Ajouter'): void
 {

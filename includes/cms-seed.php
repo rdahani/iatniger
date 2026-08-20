@@ -503,6 +503,12 @@ function cms_seed_items(PDO $pdo, bool $force): int
     cms_seed_item_keyed($pdo, 'texte', 'accueil_hero_h1', ['contenu' => "Construisez votre avenir dans un pôle d'excellence"], $force);
     cms_seed_item_keyed($pdo, 'texte', 'accueil_hero_lead', ['contenu' => "L'Institut Africain de Technologie forme les cadres et techniciens qui transforment le Niger et l'Afrique : 28 filières du Bac Pro au Doctorat, des laboratoires modernes et 25 ans d'expérience."], $force);
     cms_seed_item_keyed($pdo, 'texte', 'accueil_hero_trust', ['extra' => ['items' => ['16 diplômes accrédités CAMES', 'Système LMD', 'Laboratoires équipés']]], $force);
+    /* ---------- Navigation : promo du mega-menu Formations ---------- */
+    cms_seed_item_keyed($pdo, 'texte', 'nav_mega_promo_badge', ['contenu' => 'Inscriptions ouvertes'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'nav_mega_promo_titre', ['contenu' => 'Rejoignez la promotion 2026-2027'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'nav_mega_promo_texte', ['contenu' => 'Préinscription gratuite en ligne'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'nav_mega_promo_image', ['contenu' => 'etudiants/etudiant-laptop.jpg'], $force);
+
     cms_seed_item_keyed($pdo, 'texte', 'accueil_hero_card1_titre', ['contenu' => '30 000+'], $force);
     cms_seed_item_keyed($pdo, 'texte', 'accueil_hero_card1_sous', ['contenu' => 'diplômés depuis 1999'], $force);
     cms_seed_item_keyed($pdo, 'texte', 'accueil_hero_card2_titre', ['contenu' => "Alkalami d'Or 2026"], $force);
