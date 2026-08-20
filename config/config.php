@@ -101,10 +101,23 @@ function e(?string $value): string
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 }
 
+/*
+ * Chemin réel du dossier d'administration (non devinable).
+ * Le code continue d'écrire url('admin/...') : la traduction se fait ici.
+ * Surcharge possible dans config.local.php.
+ */
+if (!defined('ADMIN_SLUG')) {
+    define('ADMIN_SLUG', 'gestion-iat-7k2m');
+}
+
 /** URL absolue interne. */
 function url(string $path = ''): string
 {
-    return rtrim(SITE_URL, '/') . '/' . ltrim($path, '/');
+    $path = ltrim($path, '/');
+    if ($path === 'admin' || str_starts_with($path, 'admin/')) {
+        $path = ADMIN_SLUG . substr($path, 5);
+    }
+    return rtrim(SITE_URL, '/') . '/' . $path;
 }
 
 /** URL d'un asset. CSS/JS : version basée sur la date du fichier (cache-busting). */

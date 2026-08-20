@@ -351,6 +351,37 @@ admin_head('Utilisateurs & droits');
           </tbody>
         </table>
       </div>
+
+      <?php
+      /* Journal des dernières connexions (table créée à la première connexion). */
+      $journal = [];
+      try {
+          $journal = $pdo->query('SELECT username, ip, connecte_le FROM login_journal ORDER BY connecte_le DESC LIMIT 15')->fetchAll();
+      } catch (PDOException $e) {
+      }
+      ?>
+      <div class="admin-card" style="margin-top: 1.6rem;">
+        <h2 class="h3" style="margin-bottom: 1rem;"><?= icon('lock', 18) ?> Dernières connexions à l'admin</h2>
+        <?php if (!$journal) : ?>
+        <p class="caption">Aucune connexion enregistrée pour le moment. Le journal démarre à la prochaine connexion.</p>
+        <?php else : ?>
+        <div class="table-wrap">
+          <table class="table">
+            <thead><tr><th scope="col">Identifiant</th><th scope="col">Adresse IP</th><th scope="col">Date &amp; heure</th></tr></thead>
+            <tbody>
+              <?php foreach ($journal as $j) : ?>
+              <tr>
+                <td><strong><?= e($j['username']) ?></strong></td>
+                <td><?= e($j['ip']) ?></td>
+                <td><?= e($j['connecte_le']) ?></td>
+              </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
+        <p class="caption" style="margin-top: 0.8rem;">Si vous voyez une connexion que vous ne reconnaissez pas, changez immédiatement les mots de passe.</p>
+        <?php endif; ?>
+      </div>
     <?php endif; ?>
   </main>
 </div>
