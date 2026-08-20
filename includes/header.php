@@ -147,8 +147,8 @@ $site_facebook = setting('site_facebook', SITE_FACEBOOK);
             <a href="<?= url('galerie') ?>"><?= icon('image', 18) ?><span><strong>Galerie</strong><small>Le campus en images</small></span></a>
             <a href="<?= url('telechargements') ?>"><?= icon('download', 18) ?><span><strong>Téléchargements</strong><small>Dépliant, modalités de paiement, logos</small></span></a>
             <a class="dropdown-promo" href="<?= url('a-propos') ?>">
-              <img src="<?= asset('img/etudiants/laureate-trophee.jpg') ?>" alt="" loading="lazy" width="371" height="372">
-              <span><strong>25 ans d'excellence</strong><small>Découvrir notre histoire <?= icon('arrow-right', 13) ?></small></span>
+              <img src="<?= asset('img/' . ltrim(cms_texte('nav_institut_promo_image', 'etudiants/laureate-trophee.jpg'), '/')) ?>" alt="" loading="lazy" width="371" height="372">
+              <span><strong><?= e(cms_texte('nav_institut_promo_titre', "25 ans d'excellence")) ?></strong><small><?= e(cms_texte('nav_institut_promo_texte', 'Découvrir notre histoire')) ?> <?= icon('arrow-right', 13) ?></small></span>
             </a>
           </div>
         </li>
@@ -199,8 +199,8 @@ $site_facebook = setting('site_facebook', SITE_FACEBOOK);
             <a href="<?= url('vie-etudiante#alumni') ?>"><?= icon('briefcase', 18) ?><span><strong>Alumni</strong><small>L'amicale des anciens</small></span></a>
             <a href="<?= url('csp-algoza') ?>"><?= icon('school', 18) ?><span><strong>CSP Algoza</strong><small>Primaire, collège &amp; lycée</small></span></a>
             <a class="dropdown-promo" href="<?= url('vie-etudiante') ?>">
-              <img src="<?= asset('img/etudiants/diplome-bleu.jpg') ?>" alt="" loading="lazy" width="371" height="372">
-              <span><strong>Fier·e·s de nos diplômés</strong><small>La vie du campus <?= icon('arrow-right', 13) ?></small></span>
+              <img src="<?= asset('img/' . ltrim(cms_texte('nav_vie_promo_image', 'etudiants/diplome-bleu.jpg'), '/')) ?>" alt="" loading="lazy" width="371" height="372">
+              <span><strong><?= e(cms_texte('nav_vie_promo_titre', 'Fier·e·s de nos diplômés')) ?></strong><small><?= e(cms_texte('nav_vie_promo_texte', 'La vie du campus')) ?> <?= icon('arrow-right', 13) ?></small></span>
             </a>
           </div>
         </li>

@@ -508,6 +508,12 @@ function cms_seed_items(PDO $pdo, bool $force): int
     cms_seed_item_keyed($pdo, 'texte', 'nav_mega_promo_titre', ['contenu' => 'Rejoignez la promotion 2026-2027'], $force);
     cms_seed_item_keyed($pdo, 'texte', 'nav_mega_promo_texte', ['contenu' => 'Préinscription gratuite en ligne'], $force);
     cms_seed_item_keyed($pdo, 'texte', 'nav_mega_promo_image', ['contenu' => 'etudiants/etudiant-laptop.jpg'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'nav_institut_promo_image', ['contenu' => 'etudiants/laureate-trophee.jpg'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'nav_institut_promo_titre', ['contenu' => "25 ans d'excellence"], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'nav_institut_promo_texte', ['contenu' => 'Découvrir notre histoire'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'nav_vie_promo_image', ['contenu' => 'etudiants/diplome-bleu.jpg'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'nav_vie_promo_titre', ['contenu' => 'Fier·e·s de nos diplômés'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'nav_vie_promo_texte', ['contenu' => 'La vie du campus'], $force);
 
     cms_seed_item_keyed($pdo, 'texte', 'accueil_hero_card1_titre', ['contenu' => '30 000+'], $force);
     cms_seed_item_keyed($pdo, 'texte', 'accueil_hero_card1_sous', ['contenu' => 'diplômés depuis 1999'], $force);
