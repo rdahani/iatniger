@@ -1,5 +1,5 @@
 <?php
-/** Recherche interne : formations (catalogue PHP) + actualités (BDD/fallback) + pages. */
+/** Recherche interne : formations (CMS), actualités et pages. */
 
 require_once __DIR__ . '/config/config.php';
 
@@ -27,8 +27,8 @@ $resultats = ['formations' => [], 'actualites' => [], 'pages' => []];
 if ($q !== '') {
     $nq = rech_normaliser($q);
 
-    foreach (FORMATIONS as $f) {
-        $hay = rech_normaliser($f['titre'] . ' ' . $f['resume'] . ' ' . $f['objectif'] . ' ' . implode(' ', $f['debouches']));
+    foreach (cms_formations() as $f) {
+        $hay = rech_normaliser($f['titre'] . ' ' . ($f['resume'] ?? '') . ' ' . ($f['objectif'] ?? '') . ' ' . implode(' ', $f['debouches'] ?? []));
         if (str_contains($hay, $nq)) {
             $resultats['formations'][] = $f;
         }
@@ -58,6 +58,7 @@ if ($q !== '') {
     }
 }
 $total = count($resultats['formations']) + count($resultats['actualites']) + count($resultats['pages']);
+$nb_formations = count(cms_formations());
 
 require __DIR__ . '/includes/header.php';
 require __DIR__ . '/includes/page-hero.php';
@@ -73,7 +74,7 @@ require __DIR__ . '/includes/page-hero.php';
     </form>
 
     <?php if ($q === '') : ?>
-      <p class="lead">Saisissez un mot-clé pour rechercher parmi les 28 formations, les actualités et les pages du site.</p>
+      <p class="lead">Saisissez un mot-clé pour rechercher parmi les <?= (int) $nb_formations ?> formations, les actualités et les pages du site.</p>
     <?php elseif ($total === 0) : ?>
       <div class="alert alert-danger"><?= icon('search', 20) ?><div>Aucun résultat pour « <strong><?= e($q) ?></strong> ». Essayez un autre mot-clé, ou <a href="<?= url('contact') ?>">contactez-nous directement</a>.</div></div>
     <?php else : ?>

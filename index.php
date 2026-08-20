@@ -45,6 +45,22 @@ $csp_liste = cms_texte_extra('accueil_csp_liste')['items'] ?? [
     'Cantine quotidienne et jardin potager pédagogique',
 ];
 
+$fondateur_photo = cms_texte('accueil_fondateur_photo', 'fondateur-hamadou-hamidou.jpg');
+$fondateur_nom = cms_texte('accueil_fondateur_nom', 'M. Hamadou Hamidou');
+$fondateur_fonction = cms_texte('accueil_fondateur_fonction', "Fondateur de l'IAT Niger");
+$fondateur_titre = cms_texte('accueil_fondateur_titre', "Une ambition : révéler le potentiel de la jeunesse africaine");
+$fondateur_texte_1 = cms_texte('accueil_fondateur_texte_1', "Depuis 1999, l'Institut Africain de Technologie poursuit une seule ambition : offrir à la jeunesse nigérienne et africaine une formation à la hauteur de son potentiel. Nos quatre valeurs — l'excellence, la qualité, la transparence et l'ouverture au monde — se lisent dans nos accréditations CAMES, dans nos laboratoires et dans les carrières de nos 30 000 diplômés.");
+$fondateur_texte_2 = cms_texte('accueil_fondateur_texte_2', "Choisir l'IAT, c'est rejoindre une institution qui investit continuellement dans ses infrastructures, son corps enseignant et ses partenariats internationaux, pour que chaque étudiant reparte avec bien plus qu'un diplôme : un métier, une méthode et un réseau.");
+$fondateur_points = cms_texte_extra('accueil_fondateur_points')['items'] ?? ['30 000+ diplômés', '16 diplômes CAMES', 'Depuis 1999'];
+
+$hero_card1_titre = cms_texte('accueil_hero_card1_titre', '30 000+');
+$hero_card1_sous = cms_texte('accueil_hero_card1_sous', 'diplômés depuis 1999');
+$hero_card2_titre = cms_texte('accueil_hero_card2_titre', "Alkalami d'Or 2026");
+$hero_card2_sous = cms_texte('accueil_hero_card2_sous', "Prix de l'excellence académique");
+
+$niveaux_accueil = niveaux_catalogue();
+$icones_niveaux = ['niveau-moyen' => 'book-open', 'licence' => 'graduation-cap', 'master' => 'award', 'doctorat' => 'flask'];
+
 $temoignages_accueil = cms_temoignages() ?: [
     ['citation' => "La jeunesse est l'espoir de chaque communauté en quête de développement et de progrès. J'invite tous les étudiants à s'investir pleinement pour bénéficier de cette formation d'excellence.", 'auteur' => 'Secrétaire Général du BDE', 'fonction' => "Bureau Des Étudiants de l'IAT", 'initiales' => 'SG'],
     ['citation' => "De l'IAT à la Présidence de la République : la formation reçue m'a ouvert les portes des plus hautes institutions du pays.", 'auteur' => 'Abdoulaye Souleymane', 'fonction' => "Président de l'Amicale des Anciens · Protocole, Présidence", 'initiales' => 'AS'],
@@ -109,11 +125,11 @@ require __DIR__ . '/includes/header.php';
       </div>
       <div class="hero-card hero-card-1">
         <?= icon('graduation-cap', 26) ?>
-        <div><strong>30 000+</strong><small>diplômés depuis 1999</small></div>
+        <div><strong><?= e($hero_card1_titre) ?></strong><small><?= e($hero_card1_sous) ?></small></div>
       </div>
       <div class="hero-card hero-card-2">
         <?= icon('award', 26) ?>
-        <div><strong>Alkalami d'Or 2026</strong><small>Prix de l'excellence académique</small></div>
+        <div><strong><?= e($hero_card2_titre) ?></strong><small><?= e($hero_card2_sous) ?></small></div>
       </div>
     </div>
   </div>
@@ -156,22 +172,22 @@ require __DIR__ . '/includes/header.php';
   <div class="container">
     <div class="fondateur-panel reveal">
       <div class="fondateur-photo">
-        <img src="<?= asset('img/fondateur-hamadou-hamidou.jpg') ?>" alt="M. Hamadou Hamidou, fondateur de l'IAT Niger" loading="lazy" width="500" height="713">
+        <img src="<?= asset('img/' . ltrim($fondateur_photo, '/')) ?>" alt="<?= e($fondateur_nom . ', ' . $fondateur_fonction) ?>" loading="lazy" width="500" height="713">
         <div class="fondateur-plaque">
-          <strong><?= e(cms_texte('accueil_fondateur_nom', 'M. Hamadou Hamidou')) ?></strong>
-          <small><?= e(cms_texte('accueil_fondateur_fonction', "Fondateur de l'IAT Niger")) ?></small>
+          <strong><?= e($fondateur_nom) ?></strong>
+          <small><?= e($fondateur_fonction) ?></small>
         </div>
       </div>
       <div class="fondateur-content">
         <span class="fondateur-kicker"><?= icon('quote', 16) ?> Le mot du Fondateur</span>
-        <h2><?= e(cms_texte('accueil_fondateur_titre', "Une ambition : révéler le potentiel de la jeunesse africaine")) ?></h2>
-        <p class="fondateur-citation"><?= e(cms_texte('accueil_fondateur_texte_1', "Depuis 1999, l'Institut Africain de Technologie poursuit une seule ambition : offrir à la jeunesse nigérienne et africaine une formation à la hauteur de son potentiel. Nos quatre valeurs — l'excellence, la qualité, la transparence et l'ouverture au monde — se lisent dans nos accréditations CAMES, dans nos laboratoires et dans les carrières de nos 30 000 diplômés.")) ?></p>
-        <p class="fondateur-texte"><?= e(cms_texte('accueil_fondateur_texte_2', "Choisir l'IAT, c'est rejoindre une institution qui investit continuellement dans ses infrastructures, son corps enseignant et ses partenariats internationaux, pour que chaque étudiant reparte avec bien plus qu'un diplôme : un métier, une méthode et un réseau.")) ?></p>
+        <h2><?= e($fondateur_titre) ?></h2>
+        <p class="fondateur-citation"><?= e($fondateur_texte_1) ?></p>
+        <p class="fondateur-texte"><?= e($fondateur_texte_2) ?></p>
         <div class="fondateur-pied">
           <ul class="fondateur-points">
-            <li><?= icon('check-circle', 17) ?> 30 000+ diplômés</li>
-            <li><?= icon('check-circle', 17) ?> 16 diplômes CAMES</li>
-            <li><?= icon('check-circle', 17) ?> Depuis 1999</li>
+            <?php foreach ($fondateur_points as $pt) : ?>
+            <li><?= icon('check-circle', 17) ?> <?= e($pt) ?></li>
+            <?php endforeach; ?>
           </ul>
           <a class="btn btn-accent" href="<?= url('a-propos') ?>">Découvrir l'institut <?= icon('arrow-right', 16) ?></a>
         </div>
@@ -189,34 +205,27 @@ require __DIR__ . '/includes/header.php';
       <p class="lead">28 filières tertiaires et industrielles, organisées en quatre niveaux pour accompagner chaque étape de votre parcours.</p>
     </div>
     <div class="grid-4">
-      <a class="card formation-card reveal" href="<?= url('formations/niveau-moyen') ?>">
-        <span class="card-icon"><?= icon('book-open', 24) ?></span>
-        <div class="badges"><span class="badge badge-primary">Dès le BEPC</span></div>
-        <h3>Niveau Moyen</h3>
-        <p>Bac Professionnel &amp; Technique en 3 ans : banque, commerce, comptabilité, logistique, informatique, maintenance.</p>
-        <span class="card-link">6 filières <?= icon('arrow-right', 16) ?></span>
+      <?php
+      $i_niv = 0;
+      foreach ($niveaux_accueil as $slug => $niv) :
+          $nb = count(formations_par_niveau($slug));
+          $icone = $icones_niveaux[$slug] ?? 'graduation-cap';
+          $delay = $i_niv > 0 ? ' reveal-delay-' . min($i_niv, 3) : '';
+          $lien_label = $nb > 0 ? ($nb . ' filière' . ($nb > 1 ? 's' : '')) : 'Découvrir';
+          ?>
+      <a class="card formation-card reveal<?= $delay ?>" href="<?= url('formations/' . $slug) ?>">
+        <span class="card-icon"><?= icon($icone, 24) ?></span>
+        <?php if (!empty($niv['sous_titre'])) : ?>
+        <div class="badges"><span class="badge badge-primary"><?= e($niv['sous_titre']) ?></span></div>
+        <?php endif; ?>
+        <h3><?= e($niv['titre']) ?></h3>
+        <p><?= e($niv['description'] ?? '') ?></p>
+        <span class="card-link"><?= e($lien_label) ?> <?= icon('arrow-right', 16) ?></span>
       </a>
-      <a class="card formation-card reveal reveal-delay-1" href="<?= url('formations/licence') ?>">
-        <span class="card-icon"><?= icon('graduation-cap', 24) ?></span>
-        <div class="badges"><span class="badge badge-primary">Bac requis</span><span class="badge badge-success">LMD</span></div>
-        <h3>Licences</h3>
-        <p>BTS et Licences professionnelles : gestion, banque, RH, génie civil, génie logiciel, réseaux, pétrole…</p>
-        <span class="card-link">13 filières <?= icon('arrow-right', 16) ?></span>
-      </a>
-      <a class="card formation-card reveal reveal-delay-2" href="<?= url('formations/master') ?>">
-        <span class="card-icon"><?= icon('award', 24) ?></span>
-        <div class="badges"><span class="badge badge-accent">CAMES</span></div>
-        <h3>Masters</h3>
-        <p>9 masters professionnels : audit, projets, RH, logistique, systèmes &amp; réseaux, génie logiciel…</p>
-        <span class="card-link">9 filières <?= icon('arrow-right', 16) ?></span>
-      </a>
-      <a class="card formation-card reveal reveal-delay-3" href="<?= url('formations/doctorat') ?>">
-        <span class="card-icon"><?= icon('flask', 24) ?></span>
-        <div class="badges"><span class="badge badge-primary">Recherche</span></div>
-        <h3>Master de Recherche &amp; Doctorat</h3>
-        <p>En partenariat avec l'ESSEC — Université de Douala : Master de Recherche puis thèse à l'École Doctorale.</p>
-        <span class="card-link">Découvrir <?= icon('arrow-right', 16) ?></span>
-      </a>
+      <?php
+          $i_niv++;
+      endforeach;
+      ?>
     </div>
   </div>
 </section>

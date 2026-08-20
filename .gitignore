@@ -1,9 +1,9 @@
-# Dépendances & environnements
-.env
-.env.*
-!.env.example
-vendor/
-node_modules/
+# Secrets & config locale (production / machine)
+config/config.local.php
+deploy-credentials.php
+install-db.php
+database/ftp-*.php
+database/deploy-ftp.php
 
 # Logs & caches
 *.log

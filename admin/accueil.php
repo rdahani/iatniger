@@ -10,15 +10,48 @@ $pdo = admin_require_cms();
 $notice = '';
 $erreur = '';
 
-/** Textes du hero et du bloc CSP, identifiés par leur clé unique. */
+/** Textes de l'accueil (hero, fondateur, CSP, cartes flottantes), identifiés par leur clé unique. */
 $textes_config = [
     'accueil_hero_kicker' => ['label' => "Accroche courte au-dessus du titre (kicker)", 'liste' => false],
     'accueil_hero_h1' => ['label' => 'Titre principal (h1)', 'liste' => false],
     'accueil_hero_lead' => ['label' => 'Texte d\'introduction sous le titre', 'liste' => false],
     'accueil_hero_trust' => ['label' => 'Points de confiance (un par ligne)', 'liste' => true],
+    'accueil_hero_card1_titre' => ['label' => 'Carte flottante 1 — titre', 'liste' => false],
+    'accueil_hero_card1_sous' => ['label' => 'Carte flottante 1 — sous-titre', 'liste' => false],
+    'accueil_hero_card2_titre' => ['label' => 'Carte flottante 2 — titre', 'liste' => false],
+    'accueil_hero_card2_sous' => ['label' => 'Carte flottante 2 — sous-titre', 'liste' => false],
+    'accueil_fondateur_photo' => ['label' => 'Photo du fondateur', 'liste' => false, 'media' => true],
+    'accueil_fondateur_nom' => ['label' => 'Nom du fondateur', 'liste' => false],
+    'accueil_fondateur_fonction' => ['label' => 'Fonction / titre sous le nom', 'liste' => false],
+    'accueil_fondateur_titre' => ['label' => 'Titre du bloc « Mot du fondateur »', 'liste' => false],
+    'accueil_fondateur_texte_1' => ['label' => 'Citation / premier paragraphe', 'liste' => false],
+    'accueil_fondateur_texte_2' => ['label' => 'Second paragraphe', 'liste' => false],
+    'accueil_fondateur_points' => ['label' => 'Points clés sous le texte (un par ligne)', 'liste' => true],
     'accueil_csp_titre' => ['label' => 'Titre du bloc CSP Algoza', 'liste' => false],
     'accueil_csp_texte' => ['label' => 'Texte du bloc CSP Algoza', 'liste' => false],
     'accueil_csp_liste' => ['label' => 'Liste à puces du bloc CSP Algoza (une par ligne)', 'liste' => true],
+];
+
+/** Valeurs affichées dans le formulaire si la clé n'existe pas encore en base. */
+$textes_defauts = [
+    'accueil_hero_kicker' => 'Accrédité CAMES · ANAQ-SUP · Depuis 1999',
+    'accueil_hero_h1' => "Construisez votre avenir dans un pôle d'excellence",
+    'accueil_hero_lead' => "L'Institut Africain de Technologie forme les cadres et techniciens qui transforment le Niger et l'Afrique : 28 filières du Bac Pro au Doctorat, des laboratoires modernes et 25 ans d'expérience.",
+    'accueil_hero_trust' => "16 diplômes accrédités CAMES\nSystème LMD\nLaboratoires équipés",
+    'accueil_hero_card1_titre' => '30 000+',
+    'accueil_hero_card1_sous' => 'diplômés depuis 1999',
+    'accueil_hero_card2_titre' => "Alkalami d'Or 2026",
+    'accueil_hero_card2_sous' => "Prix de l'excellence académique",
+    'accueil_fondateur_photo' => 'fondateur-hamadou-hamidou.jpg',
+    'accueil_fondateur_nom' => 'M. Hamadou Hamidou',
+    'accueil_fondateur_fonction' => "Fondateur de l'IAT Niger",
+    'accueil_fondateur_titre' => "Une ambition : révéler le potentiel de la jeunesse africaine",
+    'accueil_fondateur_texte_1' => "Depuis 1999, l'Institut Africain de Technologie poursuit une seule ambition : offrir à la jeunesse nigérienne et africaine une formation à la hauteur de son potentiel. Nos quatre valeurs — l'excellence, la qualité, la transparence et l'ouverture au monde — se lisent dans nos accréditations CAMES, dans nos laboratoires et dans les carrières de nos 30 000 diplômés.",
+    'accueil_fondateur_texte_2' => "Choisir l'IAT, c'est rejoindre une institution qui investit continuellement dans ses infrastructures, son corps enseignant et ses partenariats internationaux, pour que chaque étudiant reparte avec bien plus qu'un diplôme : un métier, une méthode et un réseau.",
+    'accueil_fondateur_points' => "30 000+ diplômés\n16 diplômes CAMES\nDepuis 1999",
+    'accueil_csp_titre' => "CSP Algoza : l'excellence dès le plus jeune âge",
+    'accueil_csp_texte' => "Le Complexe Scolaire Privé Algoza accueille vos enfants de la maternelle au baccalauréat : anglais renforcé, un ordinateur par élève, cantine et classes de 25 élèves maximum.",
+    'accueil_csp_liste' => "Maternelle & primaire — anglais dès le CI, 25 ordinateurs\nCollège & lycée — séries A, C et D, 4 h d'anglais par semaine\nCantine quotidienne et jardin potager pédagogique",
 ];
 
 if ($pdo !== null && $_SERVER['REQUEST_METHOD'] === 'POST' && csrf_check($_POST['csrf'] ?? null)) {
@@ -111,24 +144,40 @@ admin_head('Accueil');
     <?php else : ?>
 
     <div class="admin-card" style="margin-bottom: 1.6rem;">
-      <h2 class="h3" style="margin-bottom: 1rem;">Textes du hero &amp; du bloc CSP Algoza</h2>
+      <h2 class="h3" style="margin-bottom: 1rem;">Textes du hero, du fondateur &amp; du bloc CSP Algoza</h2>
       <form method="post" action="<?= url('admin/accueil.php') ?>">
         <input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>">
         <input type="hidden" name="op" value="enregistrer_textes">
         <div class="form-grid">
-          <?php foreach ($textes_config as $cle => $cfg) : $row = $textes[$cle]; ?>
+          <?php foreach ($textes_config as $cle => $cfg) :
+              $row = $textes[$cle];
+              $defaut = $textes_defauts[$cle] ?? '';
+              if (!empty($cfg['media'])) {
+                  $photo = (string) ($row['contenu'] ?? $defaut);
+                  admin_media_field('textes[' . $cle . ']', $photo, [
+                      'id' => 'tx-' . $cle,
+                      'label' => $cfg['label'],
+                      'base' => 'img',
+                      'accept' => 'image',
+                      'full' => true,
+                  ]);
+                  continue;
+              }
+              if ($cfg['liste']) {
+                  $valeur = $row ? implode("\n", $row['extra']['items'] ?? []) : $defaut;
+              } else {
+                  $valeur = (string) ($row['contenu'] ?? $defaut);
+              }
+              ?>
           <div class="form-field full">
             <label for="tx-<?= e($cle) ?>"><?= e($cfg['label']) ?></label>
-            <?php if ($cfg['liste']) : ?>
-            <textarea id="tx-<?= e($cle) ?>" name="textes[<?= e($cle) ?>]" style="min-height: 90px;"><?= e(implode("\n", $row['extra']['items'] ?? [])) ?></textarea>
-            <?php else : ?>
-            <textarea id="tx-<?= e($cle) ?>" name="textes[<?= e($cle) ?>]" style="min-height: 70px;"><?= e((string) ($row['contenu'] ?? '')) ?></textarea>
-            <?php endif; ?>
+            <textarea id="tx-<?= e($cle) ?>" name="textes[<?= e($cle) ?>]" style="min-height: <?= $cfg['liste'] ? '90' : '70' ?>px;"><?= e($valeur) ?></textarea>
           </div>
           <?php endforeach; ?>
         </div>
         <button class="btn btn-primary btn-lg" type="submit" style="margin-top: 1.2rem;">Enregistrer les textes</button>
       </form>
+      <p class="caption" style="margin-top: 1rem;">Les cartes « programmes » (Niveau Moyen, Licences, Masters, Doctorat) se gèrent dans <a href="<?= url('admin/formations.php') ?>">Formations → Niveaux</a>.</p>
     </div>
 
     <div class="admin-card" style="margin-bottom: 1.6rem;">

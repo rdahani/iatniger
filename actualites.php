@@ -13,6 +13,7 @@ $breadcrumbs = [
 ];
 $hero_titre = 'Actualités';
 $hero_texte = "Distinctions, infrastructures, partenariats, vie étudiante : suivez la vie de l'institut.";
+cms_apply_page('actualites', $page_title, $page_desc, $hero_titre, $hero_texte);
 
 $toutes = actualites();
 $par_page = 6;

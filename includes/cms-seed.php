@@ -503,6 +503,17 @@ function cms_seed_items(PDO $pdo, bool $force): int
     cms_seed_item_keyed($pdo, 'texte', 'accueil_hero_h1', ['contenu' => "Construisez votre avenir dans un pôle d'excellence"], $force);
     cms_seed_item_keyed($pdo, 'texte', 'accueil_hero_lead', ['contenu' => "L'Institut Africain de Technologie forme les cadres et techniciens qui transforment le Niger et l'Afrique : 28 filières du Bac Pro au Doctorat, des laboratoires modernes et 25 ans d'expérience."], $force);
     cms_seed_item_keyed($pdo, 'texte', 'accueil_hero_trust', ['extra' => ['items' => ['16 diplômes accrédités CAMES', 'Système LMD', 'Laboratoires équipés']]], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_hero_card1_titre', ['contenu' => '30 000+'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_hero_card1_sous', ['contenu' => 'diplômés depuis 1999'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_hero_card2_titre', ['contenu' => "Alkalami d'Or 2026"], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_hero_card2_sous', ['contenu' => "Prix de l'excellence académique"], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_fondateur_photo', ['contenu' => 'fondateur-hamadou-hamidou.jpg'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_fondateur_nom', ['contenu' => 'M. Hamadou Hamidou'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_fondateur_fonction', ['contenu' => "Fondateur de l'IAT Niger"], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_fondateur_titre', ['contenu' => "Une ambition : révéler le potentiel de la jeunesse africaine"], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_fondateur_texte_1', ['contenu' => "Depuis 1999, l'Institut Africain de Technologie poursuit une seule ambition : offrir à la jeunesse nigérienne et africaine une formation à la hauteur de son potentiel. Nos quatre valeurs — l'excellence, la qualité, la transparence et l'ouverture au monde — se lisent dans nos accréditations CAMES, dans nos laboratoires et dans les carrières de nos 30 000 diplômés."], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_fondateur_texte_2', ['contenu' => "Choisir l'IAT, c'est rejoindre une institution qui investit continuellement dans ses infrastructures, son corps enseignant et ses partenariats internationaux, pour que chaque étudiant reparte avec bien plus qu'un diplôme : un métier, une méthode et un réseau."], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_fondateur_points', ['extra' => ['items' => ['30 000+ diplômés', '16 diplômes CAMES', 'Depuis 1999']]], $force);
     cms_seed_item_keyed($pdo, 'texte', 'accueil_csp_titre', ['contenu' => "CSP Algoza : l'excellence dès le plus jeune âge"], $force);
     cms_seed_item_keyed($pdo, 'texte', 'accueil_csp_texte', ['contenu' => "Le Complexe Scolaire Privé Algoza accueille vos enfants de la maternelle au baccalauréat : anglais renforcé, un ordinateur par élève, cantine et classes de 25 élèves maximum."], $force);
     cms_seed_item_keyed($pdo, 'texte', 'accueil_csp_liste', ['extra' => ['items' => [
@@ -607,6 +618,8 @@ function cms_seed_items(PDO $pdo, bool $force): int
 
     cms_seed_item_keyed($pdo, 'texte', 'csp-algoza_intro', ['contenu' => 'Le curriculum national nigérien, enrichi de cours solides en anglais et en informatique, dans une approche pédagogique multiculturelle où chaque enfant peut s\'épanouir.'], $force);
     cms_seed_item_keyed($pdo, 'texte', 'csp-algoza_reductions', ['contenu' => 'Des réductions sont accordées aux familles ayant plus de trois enfants inscrits au CSP Algoza.'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'csp-algoza_niveau_mat_primaire', ['contenu' => "Petite Section (2-3 ans), Moyenne Section (3-4 ans), Grande Section (4-5 ans), puis Cours d'Initiation (5-6 ans) et tout le cycle primaire. L'anglais commence dès le CI."], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'csp-algoza_niveau_college_lycee', ['contenu' => "Programme de l'État nigérien enrichi. Au lycée, trois orientations : les séries A, C et D. Uniforme : robe/chemise blanche, jupe/pantalon bleu marine."], $force);
 
     /* ---------- Admission ---------- */
     $n += cms_seed_item_block($pdo, 'carte', 'admission-etapes', [

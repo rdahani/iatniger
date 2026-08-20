@@ -12,12 +12,20 @@ session_start();
 define('SITE_NAME', 'IAT Niger');
 define('SITE_FULL_NAME', 'Institut Africain de Technologie');
 define('SITE_TAGLINE', 'Un pôle d\'excellence');
+
+/*
+ * Surcharge locale / production (gitignorée) :
+ * créer config/config.local.php pour DB_*, SITE_BASE, etc.
+ */
+$__local = __DIR__ . '/config.local.php';
+if (is_file($__local)) {
+    require $__local;
+}
+
 /*
  * Chemin de base de l'app :
  * - XAMPP local : /iatniger
- * - Production à la racine du domaine : '' (vide)
- * Détection auto via SCRIPT_NAME ; forçage possible :
- *   define('SITE_BASE', ''); // production racine
+ * - Production à la racine du domaine/sous-domaine : '' (vide)
  */
 if (!defined('SITE_BASE')) {
     $__script = str_replace('\\', '/', (string) ($_SERVER['SCRIPT_NAME'] ?? ''));
@@ -30,7 +38,9 @@ if (!defined('SITE_BASE')) {
 $__scheme = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
     || ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https') ? 'https' : 'http';
 $__host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-define('SITE_URL', $__scheme . '://' . $__host . SITE_BASE);
+if (!defined('SITE_URL')) {
+    define('SITE_URL', $__scheme . '://' . $__host . SITE_BASE);
+}
 define('SITE_EMAIL', 'info@iatniger.org');
 define('SITE_PHONE_1', '(+227) 20 75 29 40');
 define('SITE_PHONE_2', '(+227) 96 97 07 92');
@@ -40,11 +50,18 @@ define('SITE_ADDRESS', 'BP 412, Rond-Point Gadafawa, Yantala – Commune 1, Niam
 define('SITE_FACEBOOK', 'https://www.facebook.com/IATNIGERGROUPE');
 
 /* ---------- Base de données ---------- */
-/* En production : créer un utilisateur MySQL dédié (pas root) et un mot de passe fort. */
-define('DB_HOST', '127.0.0.1');
-define('DB_NAME', 'iatniger');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+if (!defined('DB_HOST')) {
+    define('DB_HOST', '127.0.0.1');
+}
+if (!defined('DB_NAME')) {
+    define('DB_NAME', 'iatniger');
+}
+if (!defined('DB_USER')) {
+    define('DB_USER', 'root');
+}
+if (!defined('DB_PASS')) {
+    define('DB_PASS', '');
+}
 
 /**
  * Connexion PDO partagée.

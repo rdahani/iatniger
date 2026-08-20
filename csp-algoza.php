@@ -18,6 +18,8 @@ cms_apply_page('csp-algoza', $page_title, $page_desc, $hero_titre, $hero_texte);
 /* ----- Contenu éditable (CMS avec fallback sur les valeurs par défaut) ----- */
 $csp_intro = cms_texte('csp-algoza_intro', "Le curriculum national nigérien, enrichi de cours solides en anglais et en informatique, dans une approche pédagogique multiculturelle où chaque enfant peut s'épanouir.");
 $csp_reductions = cms_texte('csp-algoza_reductions', "Des réductions sont accordées aux familles ayant plus de trois enfants inscrits au CSP Algoza.");
+$csp_mat_primaire = cms_texte('csp-algoza_niveau_mat_primaire', "Petite Section (2-3 ans), Moyenne Section (3-4 ans), Grande Section (4-5 ans), puis Cours d'Initiation (5-6 ans) et tout le cycle primaire. L'anglais commence dès le CI.");
+$csp_college_lycee = cms_texte('csp-algoza_niveau_college_lycee', "Programme de l'État nigérien enrichi. Au lycée, trois orientations : les séries A, C et D. Uniforme : robe/chemise blanche, jupe/pantalon bleu marine.");
 
 $atouts = cms_cartes('csp-algoza-atouts') ?: [
     ['titre' => 'Anglais renforcé', 'contenu' => "Dès le Cours d'Initiation au primaire, et 4 heures par semaine en petits groupes au collège-lycée.", 'extra' => ['icone' => 'globe']],
@@ -76,7 +78,7 @@ require __DIR__ . '/includes/page-hero.php';
       <article class="card reveal">
         <span class="card-icon"><?= icon('baby', 24) ?></span>
         <h3>Maternelle &amp; Primaire</h3>
-        <p style="margin-bottom: 1rem;">Petite Section (2-3 ans), Moyenne Section (3-4 ans), Grande Section (4-5 ans), puis Cours d'Initiation (5-6 ans) et tout le cycle primaire. L'anglais commence dès le CI.</p>
+        <p style="margin-bottom: 1rem;"><?= e($csp_mat_primaire) ?></p>
         <div class="table-wrap">
           <table class="table">
             <caption class="visually-hidden">Frais annuels maternelle et primaire</caption>
@@ -88,7 +90,7 @@ require __DIR__ . '/includes/page-hero.php';
       <article class="card reveal reveal-delay-1">
         <span class="card-icon"><?= icon('school', 24) ?></span>
         <h3>Collège &amp; Lycée</h3>
-        <p style="margin-bottom: 1rem;">Programme de l'État nigérien enrichi. Au lycée, trois orientations : les séries A, C et D. Uniforme : robe/chemise blanche, jupe/pantalon bleu marine.</p>
+        <p style="margin-bottom: 1rem;"><?= e($csp_college_lycee) ?></p>
         <div class="table-wrap">
           <table class="table">
             <caption class="visually-hidden">Frais annuels collège et lycée</caption>

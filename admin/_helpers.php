@@ -42,6 +42,135 @@ function admin_slugify(string $titre): string
     return trim((string) $s, '-') ?: 'item';
 }
 
+/**
+ * Compresse et redimensionne une image pour le web.
+ * - Largeur/hauteur max : 1920 px
+ * - JPEG / PNG opaque → JPEG qualité 82
+ * - PNG transparent / WebP → WebP qualité 80
+ * Retourne le chemin absolu final (peut changer d'extension), ou null si échec.
+ */
+function admin_optimize_image(string $pathAbsolu): ?string
+{
+    if (!is_file($pathAbsolu) || !extension_loaded('gd')) {
+        return null;
+    }
+
+    $info = @getimagesize($pathAbsolu);
+    if ($info === false) {
+        return null;
+    }
+
+    $mime = $info['mime'] ?? '';
+    $src = match ($mime) {
+        'image/jpeg' => @imagecreatefromjpeg($pathAbsolu),
+        'image/png' => @imagecreatefrompng($pathAbsolu),
+        'image/webp' => function_exists('imagecreatefromwebp') ? @imagecreatefromwebp($pathAbsolu) : false,
+        default => false,
+    };
+    if ($src === false) {
+        return null;
+    }
+
+    $w = imagesx($src);
+    $h = imagesy($src);
+    if ($w < 1 || $h < 1) {
+        imagedestroy($src);
+        return null;
+    }
+
+    $max = 1920;
+    $nw = $w;
+    $nh = $h;
+    if ($w > $max || $h > $max) {
+        if ($w >= $h) {
+            $nw = $max;
+            $nh = (int) round($h * ($max / $w));
+        } else {
+            $nh = $max;
+            $nw = (int) round($w * ($max / $h));
+        }
+    }
+
+    $dst = imagecreatetruecolor($nw, $nh);
+    if ($dst === false) {
+        imagedestroy($src);
+        return null;
+    }
+
+    $hasAlpha = false;
+    if ($mime === 'image/png' || $mime === 'image/webp') {
+        imagealphablending($dst, false);
+        imagesavealpha($dst, true);
+        $transparent = imagecolorallocatealpha($dst, 0, 0, 0, 127);
+        imagefilledrectangle($dst, 0, 0, $nw, $nh, $transparent);
+        imagealphablending($dst, true);
+
+        /* Détecte une transparence réelle (échantillonnage rapide). */
+        if ($mime === 'image/png') {
+            for ($y = 0; $y < $h && !$hasAlpha; $y += max(1, (int) ($h / 40))) {
+                for ($x = 0; $x < $w && !$hasAlpha; $x += max(1, (int) ($w / 40))) {
+                    $rgba = imagecolorat($src, $x, $y);
+                    if ((($rgba & 0x7F000000) >> 24) > 0) {
+                        $hasAlpha = true;
+                    }
+                }
+            }
+        } else {
+            $hasAlpha = true; /* WebP : on conserve le format pour éviter les surprises. */
+        }
+    } else {
+        $white = imagecolorallocate($dst, 255, 255, 255);
+        imagefilledrectangle($dst, 0, 0, $nw, $nh, $white);
+    }
+
+    imagecopyresampled($dst, $src, 0, 0, 0, 0, $nw, $nh, $w, $h);
+    imagedestroy($src);
+
+    $dir = dirname($pathAbsolu);
+    $base = pathinfo($pathAbsolu, PATHINFO_FILENAME);
+    $useWebp = $hasAlpha && function_exists('imagewebp');
+    $outExt = $useWebp ? 'webp' : 'jpg';
+    $outPath = $dir . '/' . $base . '.' . $outExt;
+
+    $ok = false;
+    if ($useWebp) {
+        imagealphablending($dst, false);
+        imagesavealpha($dst, true);
+        $ok = imagewebp($dst, $outPath, 80);
+    } else {
+        if ($hasAlpha) {
+            /* Fallback PNG si WebP indisponible. */
+            $outExt = 'png';
+            $outPath = $dir . '/' . $base . '.png';
+            imagesavealpha($dst, true);
+            $ok = imagepng($dst, $outPath, 6);
+        } else {
+            /* Fond blanc pour les PNG opaques convertis en JPEG. */
+            if ($mime === 'image/png' || $mime === 'image/webp') {
+                $flat = imagecreatetruecolor($nw, $nh);
+                $white = imagecolorallocate($flat, 255, 255, 255);
+                imagefilledrectangle($flat, 0, 0, $nw, $nh, $white);
+                imagecopy($flat, $dst, 0, 0, 0, 0, $nw, $nh);
+                imagedestroy($dst);
+                $dst = $flat;
+            }
+            $ok = imagejpeg($dst, $outPath, 82);
+        }
+    }
+    imagedestroy($dst);
+
+    if (!$ok || !is_file($outPath)) {
+        return null;
+    }
+
+    /* Supprime l'original si l'extension a changé. */
+    if (realpath($pathAbsolu) !== realpath($outPath)) {
+        @unlink($pathAbsolu);
+    }
+
+    return $outPath;
+}
+
 /** Upload fichier vers assets/uploads/ (images/docs). Retourne chemin relatif ou null. */
 function admin_upload(string $field, string $sous_dossier = 'uploads'): ?string
 {
@@ -68,6 +197,15 @@ function admin_upload(string $field, string $sous_dossier = 'uploads'): ?string
     if (!move_uploaded_file($_FILES[$field]['tmp_name'], $dest)) {
         return null;
     }
+
+    /* Images : compression + redimensionnement automatiques (sauf GIF animés). */
+    if (in_array($ext, ['jpg', 'jpeg', 'png', 'webp'], true)) {
+        $optimized = admin_optimize_image($dest);
+        if ($optimized !== null) {
+            return trim($sous_dossier, '/') . '/' . basename($optimized);
+        }
+    }
+
     return trim($sous_dossier, '/') . '/' . $filename;
 }
 

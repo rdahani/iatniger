@@ -10,11 +10,35 @@ $notice = '';
 $erreur = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && csrf_check($_POST['csrf'] ?? null)) {
-    $chemin = admin_upload('fichier', 'uploads');
-    if ($chemin !== null) {
-        $notice = 'Fichier téléversé : ' . $chemin;
+    $op = $_POST['op'] ?? 'upload';
+    if ($op === 'supprimer') {
+        $rel = str_replace('\\', '/', (string) ($_POST['chemin'] ?? ''));
+        $rel = ltrim($rel, '/');
+        /* Suppression limitée aux dossiers d'upload (pas les assets seedés). */
+        $autorise = str_starts_with($rel, 'uploads/')
+            || str_starts_with($rel, 'img/uploads/');
+        $abs = $autorise ? (dirname(__DIR__) . '/assets/' . $rel) : '';
+        $root = realpath(dirname(__DIR__) . '/assets');
+        $real = $abs !== '' ? realpath($abs) : false;
+        if ($autorise && $real !== false && $root !== false) {
+            $realN = strtolower(str_replace('\\', '/', $real));
+            $rootN = strtolower(str_replace('\\', '/', $root));
+            if (str_starts_with($realN, $rootN) && is_file($real)) {
+                @unlink($real);
+                $notice = 'Fichier supprimé : ' . $rel;
+            } else {
+                $erreur = 'Suppression impossible (fichier introuvable ou non autorisé).';
+            }
+        } else {
+            $erreur = 'Suppression impossible (fichier introuvable ou non autorisé).';
+        }
     } else {
-        $erreur = "Le fichier n'a pas pu être téléversé (formats acceptés : jpg, jpeg, png, gif, webp, pdf, doc, docx).";
+        $chemin = admin_upload('fichier', 'uploads');
+        if ($chemin !== null) {
+            $notice = 'Fichier téléversé : ' . $chemin;
+        } else {
+            $erreur = "Le fichier n'a pas pu être téléversé (formats acceptés : jpg, jpeg, png, gif, webp, pdf, doc, docx).";
+        }
     }
 }
 
@@ -101,6 +125,14 @@ admin_head('Médiathèque');
           <p style="font-size: 0.85rem; font-weight: 600; word-break: break-all; margin-bottom: 0.3rem;"><?= e($f['nom']) ?></p>
           <p class="caption" style="margin-bottom: 0.6rem;"><?= medias_taille((int) $f['taille']) ?></p>
           <input type="text" readonly value="<?= e($f['chemin']) ?>" onclick="this.select();" style="font-size: 0.75rem; padding: 0.4rem 0.5rem; width: 100%; background: var(--bg-alt, #f3f4f6); border: 1px solid var(--border, #e5e7eb); border-radius: var(--radius-sm, 6px);">
+          <?php if (str_starts_with($f['chemin'], 'uploads/') || str_starts_with($f['chemin'], 'img/uploads/')) : ?>
+          <form method="post" action="<?= url('admin/medias.php') ?>" style="margin-top: 0.5rem;" onsubmit="return confirm('Supprimer ce fichier ?');">
+            <input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>">
+            <input type="hidden" name="op" value="supprimer">
+            <input type="hidden" name="chemin" value="<?= e($f['chemin']) ?>">
+            <button class="btn btn-outline" type="submit" style="width: 100%; color: var(--danger);"><?= icon('trash', 14) ?> Supprimer</button>
+          </form>
+          <?php endif; ?>
         </div>
         <?php endforeach; ?>
       </div>
