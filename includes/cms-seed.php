@@ -186,6 +186,7 @@ function cms_seed_settings(PDO $pdo, bool $force): int
         ['site_phone_2', defined('SITE_PHONE_2') ? SITE_PHONE_2 : '', 'Téléphone secondaire', 'contact'],
         ['site_whatsapp', defined('SITE_WHATSAPP') ? SITE_WHATSAPP : '', 'WhatsApp (indicatif + numéro, sans + ni espaces)', 'contact'],
         ['site_address', defined('SITE_ADDRESS') ? SITE_ADDRESS : '', 'Adresse postale', 'contact'],
+        ['contact_map_titre', 'Rond-point Gadafawa, Yantala — Niamey', 'Titre de la carte (page contact)', 'contact'],
         ['site_facebook', defined('SITE_FACEBOOK') ? SITE_FACEBOOK : '', 'Lien Facebook', 'contact'],
         ['footer_cta_titre', "Prêt·e à rejoindre un pôle d'excellence ?", 'Titre du bandeau CTA (pied de page)', 'footer'],
         ['footer_cta_texte', 'Inscriptions ouvertes — BTS, Licences, Masters et Doctorat. Rejoignez plus de 30 000 diplômés.', 'Texte du bandeau CTA (pied de page)', 'footer'],
