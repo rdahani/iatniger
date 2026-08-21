@@ -35,6 +35,9 @@ $videos_defaut = [
 ];
 $videos = cms_videos() ?: $videos_defaut;
 
+$footer_caption = cms_texte('web-tv_footer_caption', "Les vidéos s'ouvrent dans le lecteur de la WEB TV IAT. Suivez-nous aussi sur Facebook.");
+$vues_label = cms_texte('web-tv_vues_label', 'vues');
+
 require __DIR__ . '/includes/header.php';
 require __DIR__ . '/includes/page-hero.php';
 ?>
@@ -52,12 +55,12 @@ require __DIR__ . '/includes/page-hero.php';
         </div>
         <div class="news-body">
           <h3 style="font-size: 1.02rem;"><?= e($v['titre']) ?></h3>
-          <p class="caption"><?= icon('eye', 14) ?> <?= number_format($v['vues'], 0, ',', ' ') ?> vues</p>
+          <p class="caption"><?= icon('eye', 14) ?> <?= number_format($v['vues'], 0, ',', ' ') ?> <?= e($vues_label) ?></p>
         </div>
       </article>
       <?php endforeach; ?>
     </div>
-    <p class="caption text-center" style="margin-top: 2.5rem;">Les vidéos s'ouvrent dans le lecteur de la WEB TV IAT. Suivez-nous aussi sur <a href="<?= e(SITE_FACEBOOK) ?>" target="_blank" rel="noopener">Facebook</a>.</p>
+    <p class="caption text-center" style="margin-top: 2.5rem;"><?= e($footer_caption) ?></p>
   </div>
 </section>
 

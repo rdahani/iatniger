@@ -16,10 +16,20 @@ $hero_texte = "Préparer nos élèves à devenir des citoyens responsables en of
 cms_apply_page('csp-algoza', $page_title, $page_desc, $hero_titre, $hero_texte);
 
 /* ----- Contenu éditable (CMS avec fallback sur les valeurs par défaut) ----- */
+$atouts_kicker = cms_texte('csp-algoza_atouts_kicker', 'Nos atouts');
+$atouts_titre = cms_texte('csp-algoza_atouts_titre', 'Un enseignement enrichi, des classes à taille humaine');
 $csp_intro = cms_texte('csp-algoza_intro', "Le curriculum national nigérien, enrichi de cours solides en anglais et en informatique, dans une approche pédagogique multiculturelle où chaque enfant peut s'épanouir.");
-$csp_reductions = cms_texte('csp-algoza_reductions', "Des réductions sont accordées aux familles ayant plus de trois enfants inscrits au CSP Algoza.");
+$niveaux_kicker = cms_texte('csp-algoza_niveaux_kicker', 'Les niveaux');
+$niveaux_titre = cms_texte('csp-algoza_niveaux_titre', 'De la Petite Section à la Terminale');
+$card_mat_titre = cms_texte('csp-algoza_card_mat_titre', 'Maternelle & Primaire');
 $csp_mat_primaire = cms_texte('csp-algoza_niveau_mat_primaire', "Petite Section (2-3 ans), Moyenne Section (3-4 ans), Grande Section (4-5 ans), puis Cours d'Initiation (5-6 ans) et tout le cycle primaire. L'anglais commence dès le CI.");
+$card_col_titre = cms_texte('csp-algoza_card_col_titre', 'Collège & Lycée');
 $csp_college_lycee = cms_texte('csp-algoza_niveau_college_lycee', "Programme de l'État nigérien enrichi. Au lycée, trois orientations : les séries A, C et D. Uniforme : robe/chemise blanche, jupe/pantalon bleu marine.");
+$reductions_label = cms_texte('csp-algoza_reductions_label', 'Réductions familles nombreuses :');
+$csp_reductions = cms_texte('csp-algoza_reductions', 'Des réductions sont accordées aux familles ayant plus de trois enfants inscrits au CSP Algoza.');
+$cta_titre = cms_texte('csp-algoza_cta_titre', 'Inscrivez votre enfant au CSP Algoza');
+$cta_lead = cms_texte('csp-algoza_cta_lead', "Contactez-nous pour connaître les disponibilités et planifier une visite de l'école.");
+$cta_btn = cms_texte('csp-algoza_cta_btn', 'Nous contacter');
 
 $atouts = cms_cartes('csp-algoza-atouts') ?: [
     ['titre' => 'Anglais renforcé', 'contenu' => "Dès le Cours d'Initiation au primaire, et 4 heures par semaine en petits groupes au collège-lycée.", 'extra' => ['icone' => 'globe']],
@@ -51,8 +61,8 @@ require __DIR__ . '/includes/page-hero.php';
 <section class="section">
   <div class="container">
     <div class="section-head centered reveal">
-      <span class="kicker"><?= icon('sparkles', 15) ?> Nos atouts</span>
-      <h2>Un enseignement enrichi, des classes à taille humaine</h2>
+      <span class="kicker"><?= icon('sparkles', 15) ?> <?= e($atouts_kicker) ?></span>
+      <h2><?= e($atouts_titre) ?></h2>
       <p class="lead"><?= e($csp_intro) ?></p>
     </div>
     <div class="grid-4">
@@ -71,13 +81,13 @@ require __DIR__ . '/includes/page-hero.php';
 <section class="section section-alt">
   <div class="container">
     <div class="section-head reveal">
-      <span class="kicker"><?= icon('school', 15) ?> Les niveaux</span>
-      <h2>De la Petite Section à la Terminale</h2>
+      <span class="kicker"><?= icon('school', 15) ?> <?= e($niveaux_kicker) ?></span>
+      <h2><?= e($niveaux_titre) ?></h2>
     </div>
     <div class="grid-2" style="align-items: stretch;">
       <article class="card reveal">
         <span class="card-icon"><?= icon('baby', 24) ?></span>
-        <h3>Maternelle &amp; Primaire</h3>
+        <h3><?= e($card_mat_titre) ?></h3>
         <p style="margin-bottom: 1rem;"><?= e($csp_mat_primaire) ?></p>
         <div class="table-wrap">
           <table class="table">
@@ -89,7 +99,7 @@ require __DIR__ . '/includes/page-hero.php';
       </article>
       <article class="card reveal reveal-delay-1">
         <span class="card-icon"><?= icon('school', 24) ?></span>
-        <h3>Collège &amp; Lycée</h3>
+        <h3><?= e($card_col_titre) ?></h3>
         <p style="margin-bottom: 1rem;"><?= e($csp_college_lycee) ?></p>
         <div class="table-wrap">
           <table class="table">
@@ -105,7 +115,7 @@ require __DIR__ . '/includes/page-hero.php';
     </div>
     <div class="alert alert-success reveal" style="margin-top: 2rem;">
       <?= icon('check-circle', 20) ?>
-      <div><strong>Réductions familles nombreuses :</strong> <?= e($csp_reductions) ?></div>
+      <div><strong><?= e($reductions_label) ?></strong> <?= e($csp_reductions) ?></div>
     </div>
   </div>
 </section>
@@ -114,11 +124,11 @@ require __DIR__ . '/includes/page-hero.php';
 <section class="section">
   <div class="container text-center">
     <div class="section-head centered reveal">
-      <h2>Inscrivez votre enfant au CSP Algoza</h2>
-      <p class="lead">Contactez-nous pour connaître les disponibilités et planifier une visite de l'école.</p>
+      <h2><?= e($cta_titre) ?></h2>
+      <p class="lead"><?= e($cta_lead) ?></p>
     </div>
     <div class="hero-actions" style="justify-content: center;">
-      <a class="btn btn-primary btn-lg" href="<?= url('contact') ?>">Nous contacter <?= icon('arrow-right', 18) ?></a>
+      <a class="btn btn-primary btn-lg" href="<?= url('contact') ?>"><?= e($cta_btn) ?> <?= icon('arrow-right', 18) ?></a>
       <a class="btn btn-outline btn-lg" href="tel:+22796970792"><?= icon('phone', 18) ?> <?= e(SITE_PHONE_2) ?></a>
     </div>
   </div>

@@ -190,8 +190,12 @@ function cms_seed_settings(PDO $pdo, bool $force): int
         ['site_facebook', defined('SITE_FACEBOOK') ? SITE_FACEBOOK : '', 'Lien Facebook', 'contact'],
         ['footer_cta_titre', "Prêt·e à rejoindre un pôle d'excellence ?", 'Titre du bandeau CTA (pied de page)', 'footer'],
         ['footer_cta_texte', 'Inscriptions ouvertes — BTS, Licences, Masters et Doctorat. Rejoignez plus de 30 000 diplômés.', 'Texte du bandeau CTA (pied de page)', 'footer'],
+        ['footer_cta_btn1', "Je m'inscris", 'Bouton CTA 1 (pied de page)', 'footer'],
+        ['footer_cta_btn2', 'Nous contacter', 'Bouton CTA 2 (pied de page)', 'footer'],
         ['footer_about', "L'Institut Africain de Technologie forme depuis 1999 les cadres et techniciens qui construisent le Niger et l'Afrique de demain.", 'Texte « à propos » du pied de page', 'footer'],
         ['footer_mention', "Agréé par arrêtés N° 0143 & 0233/MEN/DEPRI/DETFP (1999) · Diplômes accrédités CAMES / ANAQ-SUP", 'Mention légale du pied de page', 'footer'],
+        ['footer_newsletter_label', 'Newsletter — restez informé·e', 'Libellé newsletter (pied de page)', 'footer'],
+        ['footer_whatsapp_prefill', "Bonjour, je souhaite des informations sur l'IAT Niger.", 'Message prérempli WhatsApp', 'footer'],
     ];
     $n = 0;
     foreach ($settings as [$cle, $valeur, $label, $groupe]) {
@@ -534,6 +538,38 @@ function cms_seed_items(PDO $pdo, bool $force): int
         'Collège & lycée — séries A, C et D, 4 h d\'anglais par semaine',
         'Cantine quotidienne et jardin potager pédagogique',
     ]]], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_hero_h1_accent', ['contenu' => "un pôle d'excellence"], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_hero_btn1', ['contenu' => "Je m'inscris maintenant"], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_hero_btn2', ['contenu' => 'Découvrir les formations'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_pourquoi_kicker', ['contenu' => "Pourquoi choisir l'IAT ?"], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_pourquoi_titre', ['contenu' => "Une formation d'excellence, reconnue en Afrique et au-delà"], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_pourquoi_lead', ['contenu' => "Quatre valeurs guident l'institut depuis sa création : l'excellence, la qualité, la transparence et l'ouverture au monde."], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_fondateur_kicker', ['contenu' => 'Le mot du Fondateur'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_fondateur_btn', ['contenu' => "Découvrir l'institut"], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_programmes_kicker', ['contenu' => 'Nos programmes'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_programmes_titre', ['contenu' => 'Du BEPC au Doctorat, un parcours complet'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_programmes_lead', ['contenu' => '28 filières tertiaires et industrielles, organisées en quatre niveaux pour accompagner chaque étape de votre parcours.'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_csp_kicker', ['contenu' => 'Groupe IAT'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_csp_btn1', ['contenu' => 'Découvrir le CSP Algoza'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_csp_btn2', ['contenu' => 'Nous contacter'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_csp_image', ['contenu' => 'campus/immeuble-iat.jpg'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_csp_badge_titre', ['contenu' => 'Maternelle → Bac'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_csp_badge_sous', ['contenu' => 'Excellence dès le plus jeune âge'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_actus_kicker', ['contenu' => 'Actualités'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_actus_titre', ['contenu' => "La vie de l'institut"], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_actus_btn', ['contenu' => 'Toutes les actualités'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_temoignages_kicker', ['contenu' => 'Ils nous font confiance'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_temoignages_titre', ['contenu' => 'La parole à nos anciens'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_galerie_kicker', ['contenu' => 'Galerie'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_galerie_titre', ['contenu' => 'Le campus en images'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_galerie_btn', ['contenu' => 'Voir toute la galerie'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_galerie_photos', ['extra' => ['items' => [
+        'recentes/photo-48.jpg', 'recentes/photo-20.jpg', 'recentes/photo-26.jpg',
+        'recentes/photo-17.jpg', 'recentes/photo-21.jpg', 'recentes/photo-49.jpg',
+        'recentes/photo-12.jpg', 'campus/immeuble-iat.jpg',
+    ]]], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_partenaires_kicker', ['contenu' => 'Partenaires'], $force);
+    cms_seed_item_keyed($pdo, 'texte', 'accueil_partenaires_titre', ['contenu' => 'Un réseau institutionnel et académique solide'], $force);
 
     /* ---------- Accueil : pourquoi choisir l'IAT ---------- */
     $n += cms_seed_item_block($pdo, 'carte', 'accueil-pourquoi', [
@@ -640,6 +676,20 @@ function cms_seed_items(PDO $pdo, bool $force): int
         ['titre' => 'Préparez votre dossier', 'contenu' => "Extrait d'acte de naissance, certificat de nationalité et dernier bulletin ou diplôme. Des pièces complémentaires sont demandées pour le Master de Recherche."],
         ['titre' => 'Déposez votre candidature', 'contenu' => "Préinscrivez-vous en ligne ou rendez-vous directement au campus (rond-point Gadafawa, Yantala). Notre équipe vous recontacte rapidement."],
     ], $force);
+
+    /* ---------- Textes de pages (cms_page_textes_defs) ---------- */
+    require_once __DIR__ . '/cms-page-textes.php';
+    foreach (cms_page_textes_defs() as $page) {
+        foreach ($page['textes'] as $cle => $cfg) {
+            $defaut = $page['defauts'][$cle] ?? '';
+            if (!empty($cfg['liste'])) {
+                $items = array_values(array_filter(array_map('trim', explode("\n", $defaut))));
+                cms_seed_item_keyed($pdo, 'texte', $cle, ['extra' => ['items' => $items]], $force);
+            } else {
+                cms_seed_item_keyed($pdo, 'texte', $cle, ['contenu' => $defaut], $force);
+            }
+        }
+    }
 
     return $n;
 }

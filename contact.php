@@ -22,6 +22,22 @@ $contact_phone_2 = setting('site_phone_2', SITE_PHONE_2);
 $contact_email = setting('site_email', SITE_EMAIL);
 $contact_facebook = setting('site_facebook', SITE_FACEBOOK);
 
+$coords_kicker = cms_texte('contact_coords_kicker', 'Nos coordonnées');
+$coords_titre = cms_texte('contact_coords_titre', 'Rendez-nous visite ou appelez-nous');
+$form_titre = cms_texte('contact_form_titre', 'Envoyez-nous un message');
+$form_btn = cms_texte('contact_form_btn', 'Envoyer le message');
+$form_success = cms_texte('contact_form_success', 'Message envoyé ! Merci de nous avoir écrit — nous vous répondrons dans les meilleurs délais.');
+$contact_sujets = cms_texte_extra('contact_sujets')['items'] ?? [
+    "Demande d'information",
+    'Inscription / Admission',
+    'CSP Algoza',
+    'Partenariat',
+    'Presse & médias',
+    'Autre',
+];
+$map_kicker = cms_texte('contact_map_kicker', 'Localisation');
+$map_link = cms_texte('contact_map_link', 'Ouvrir la carte en grand');
+
 /* ----- Traitement du formulaire ----- */
 $form_ok = false;
 $form_err = '';
@@ -65,8 +81,8 @@ require __DIR__ . '/includes/page-hero.php';
 
       <!-- Coordonnées -->
       <div class="reveal">
-        <span class="kicker"><?= icon('map-pin', 15) ?> Nos coordonnées</span>
-        <h2 class="h3" style="margin-bottom: 1.5rem;">Rendez-nous visite ou appelez-nous</h2>
+        <span class="kicker"><?= icon('map-pin', 15) ?> <?= e($coords_kicker) ?></span>
+        <h2 class="h3" style="margin-bottom: 1.5rem;"><?= e($coords_titre) ?></h2>
         <div style="display: grid; gap: 1rem;">
           <div class="card" style="display: flex; gap: 1rem; align-items: flex-start;">
             <span class="card-icon" style="margin: 0;"><?= icon('map-pin', 22) ?></span>
@@ -92,10 +108,10 @@ require __DIR__ . '/includes/page-hero.php';
 
       <!-- Formulaire -->
       <div class="card reveal reveal-delay-1" style="padding: clamp(1.6rem, 4vw, 2.5rem);">
-        <h2 class="h3" style="margin-bottom: 1.5rem;">Envoyez-nous un message</h2>
+        <h2 class="h3" style="margin-bottom: 1.5rem;"><?= e($form_titre) ?></h2>
 
         <?php if ($form_ok) : ?>
-          <div class="alert alert-success"><?= icon('check-circle', 20) ?><div><strong>Message envoyé !</strong> Merci de nous avoir écrit — nous vous répondrons dans les meilleurs délais.</div></div>
+          <div class="alert alert-success"><?= icon('check-circle', 20) ?><div><?= e($form_success) ?></div></div>
         <?php elseif ($form_err !== '') : ?>
           <div class="alert alert-danger"><?= icon('x', 20) ?><div><?= e($form_err) ?></div></div>
         <?php endif; ?>
@@ -123,7 +139,7 @@ require __DIR__ . '/includes/page-hero.php';
               <label for="ct-sujet">Sujet <span class="req" aria-hidden="true">*</span></label>
               <select id="ct-sujet" name="sujet" required>
                 <option value="">— Choisir —</option>
-                <?php foreach (['Demande d\'information', 'Inscription / Admission', 'CSP Algoza', 'Partenariat', 'Presse & médias', 'Autre'] as $s) : ?>
+                <?php foreach ($contact_sujets as $s) : ?>
                 <option value="<?= e($s) ?>" <?= ($_POST['sujet'] ?? '') === $s ? 'selected' : '' ?>><?= e($s) ?></option>
                 <?php endforeach; ?>
               </select>
@@ -135,7 +151,7 @@ require __DIR__ . '/includes/page-hero.php';
               <span class="error-msg">Merci de rédiger votre message (10 caractères minimum).</span>
             </div>
           </div>
-          <button class="btn btn-primary btn-lg" type="submit" style="margin-top: 1.4rem;">Envoyer le message <?= icon('send', 18) ?></button>
+          <button class="btn btn-primary btn-lg" type="submit" style="margin-top: 1.4rem;"><?= e($form_btn) ?> <?= icon('send', 18) ?></button>
         </form>
         <?php endif; ?>
       </div>
@@ -147,11 +163,11 @@ require __DIR__ . '/includes/page-hero.php';
 <section class="section section-alt">
   <div class="container">
     <div class="section-head reveal">
-      <span class="kicker"><?= icon('map-pin', 15) ?> Localisation</span>
+      <span class="kicker"><?= icon('map-pin', 15) ?> <?= e($map_kicker) ?></span>
       <h2 class="h3"><?= e(setting('contact_map_titre', 'Rond-point Gadafawa, Yantala — Niamey')) ?></h2>
     </div>
     <iframe class="map-embed reveal" src="https://www.openstreetmap.org/export/embed.html?bbox=2.066680%2C13.522711%2C2.096680%2C13.542711&amp;layer=mapnik&amp;marker=13.532711%2C2.081680" title="Carte de localisation de l'IAT Niger à Niamey" loading="lazy"></iframe>
-    <p class="caption" style="margin-top: 0.8rem;"><a href="https://www.openstreetmap.org/?mlat=13.532711&amp;mlon=2.081680#map=16/13.532711/2.081680" target="_blank" rel="noopener">Ouvrir la carte en grand <?= icon('external-link', 13) ?></a></p>
+    <p class="caption" style="margin-top: 0.8rem;"><a href="https://www.openstreetmap.org/?mlat=13.532711&amp;mlon=2.081680#map=16/13.532711/2.081680" target="_blank" rel="noopener"><?= e($map_link) ?> <?= icon('external-link', 13) ?></a></p>
   </div>
 </section>
 

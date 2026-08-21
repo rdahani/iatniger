@@ -35,6 +35,9 @@ $faqs_defaut = [
 ];
 $faqs = cms_faq() ?: $faqs_defaut;
 
+$cta_lead = cms_texte('faq_cta_lead', 'Vous ne trouvez pas votre réponse ?');
+$cta_btn = cms_texte('faq_cta_btn', 'Contactez-nous');
+
 require __DIR__ . '/includes/header.php';
 ?>
 <!-- JSON-LD : FAQPage -->
@@ -63,8 +66,8 @@ require __DIR__ . '/includes/header.php';
       <?php endforeach; ?>
     </div>
     <div class="text-center" style="margin-top: 3rem;">
-      <p class="lead" style="margin-bottom: 1.2rem;">Vous ne trouvez pas votre réponse ?</p>
-      <a class="btn btn-primary btn-lg" href="<?= url('contact') ?>">Contactez-nous <?= icon('arrow-right', 18) ?></a>
+      <p class="lead" style="margin-bottom: 1.2rem;"><?= e($cta_lead) ?></p>
+      <a class="btn btn-primary btn-lg" href="<?= url('contact') ?>"><?= e($cta_btn) ?> <?= icon('arrow-right', 18) ?></a>
     </div>
   </div>
 </section>

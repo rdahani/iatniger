@@ -23,6 +23,23 @@ $etapes = cms_cartes('admission-etapes') ?: [
     ['titre' => 'Déposez votre candidature', 'contenu' => "Préinscrivez-vous en ligne ci-dessous ou rendez-vous directement au campus (rond-point Gadafawa, Yantala). Notre équipe vous recontacte rapidement."],
 ];
 
+$conditions_kicker = cms_texte('admission_conditions_kicker', "Conditions d'accès");
+$conditions_titre = cms_texte('admission_conditions_titre', 'Les conditions par niveau');
+$conditions_caption = cms_texte('admission_conditions_caption', "Dossier commun : extrait d'acte de naissance, certificat de nationalité, dernier bulletin ou diplôme. Master de Recherche : voir les pièces spécifiques.");
+$form_kicker = cms_texte('admission_form_kicker', 'Préinscription en ligne');
+$form_titre = cms_texte('admission_form_titre', 'Déposez votre préinscription');
+$form_lead = cms_texte('admission_form_lead', 'Gratuite et sans engagement — la scolarité vous rappelle pour finaliser votre dossier.');
+$form_success = cms_texte('admission_form_success', 'Préinscription enregistrée ! Merci pour votre confiance. Notre équipe scolarité vous contactera sous 48 h ouvrées au numéro indiqué.');
+$form_btn = cms_texte('admission_form_btn', 'Envoyer ma préinscription');
+$form_privacy = cms_texte('admission_form_privacy', "Vos données restent confidentielles et ne servent qu'au traitement de votre candidature.");
+$doc_kicker = cms_texte('admission_doc_kicker', 'Documentation');
+$doc_titre = cms_texte('admission_doc_titre', 'Brochure officielle 2025-2026');
+$doc_lead = cms_texte('admission_doc_lead', "Retrouvez l'ensemble des filières, conditions et contacts dans la brochure officielle de l'institut, à télécharger et partager.");
+$doc_btn1 = cms_texte('admission_doc_btn1', 'Dépliant & modalités de paiement (PDF)');
+$doc_btn2 = cms_texte('admission_doc_btn2', 'Brochure 2025-2026');
+$doc_btn3 = cms_texte('admission_doc_btn3', 'Tous les documents');
+$doc_image = cms_texte('admission_doc_image', 'brochure-2025-2026.jpg');
+
 /* ----- Traitement de la préinscription ----- */
 $form_ok = false;
 $form_err = '';
@@ -82,8 +99,8 @@ require __DIR__ . '/includes/page-hero.php';
 <section class="section section-alt" id="conditions">
   <div class="container">
     <div class="section-head reveal">
-      <span class="kicker"><?= icon('clipboard-list', 15) ?> Conditions d'accès</span>
-      <h2>Les conditions par niveau</h2>
+      <span class="kicker"><?= icon('clipboard-list', 15) ?> <?= e($conditions_kicker) ?></span>
+      <h2><?= e($conditions_titre) ?></h2>
     </div>
     <div class="table-wrap reveal">
       <table class="table">
@@ -101,7 +118,7 @@ require __DIR__ . '/includes/page-hero.php';
         </tbody>
       </table>
     </div>
-    <p class="caption" style="margin-top: 1rem;">Dossier commun : extrait d'acte de naissance, certificat de nationalité, dernier bulletin ou diplôme. Master de Recherche : voir les <a href="<?= url('formations/doctorat') ?>">pièces spécifiques</a>.</p>
+    <p class="caption" style="margin-top: 1rem;"><?= e($conditions_caption) ?></p>
   </div>
 </section>
 
@@ -109,14 +126,14 @@ require __DIR__ . '/includes/page-hero.php';
 <section class="section" id="preinscription">
   <div class="container">
     <div class="section-head centered reveal">
-      <span class="kicker"><?= icon('user-plus', 15) ?> Préinscription en ligne</span>
-      <h2>Déposez votre préinscription</h2>
-      <p class="lead">Gratuite et sans engagement — la scolarité vous rappelle pour finaliser votre dossier.</p>
+      <span class="kicker"><?= icon('user-plus', 15) ?> <?= e($form_kicker) ?></span>
+      <h2><?= e($form_titre) ?></h2>
+      <p class="lead"><?= e($form_lead) ?></p>
     </div>
 
     <div class="card reveal" style="max-width: 820px; margin-inline: auto; padding: clamp(1.6rem, 4vw, 2.8rem);">
       <?php if ($form_ok) : ?>
-        <div class="alert alert-success"><?= icon('check-circle', 20) ?><div><strong>Préinscription enregistrée !</strong> Merci pour votre confiance. Notre équipe scolarité vous contactera sous 48 h ouvrées au numéro indiqué.</div></div>
+        <div class="alert alert-success"><?= icon('check-circle', 20) ?><div><?= e($form_success) ?></div></div>
       <?php elseif ($form_err !== '') : ?>
         <div class="alert alert-danger"><?= icon('x', 20) ?><div><?= e($form_err) ?></div></div>
       <?php endif; ?>
@@ -183,8 +200,8 @@ require __DIR__ . '/includes/page-hero.php';
           </div>
         </div>
         <div style="margin-top: 1.6rem; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;">
-          <button class="btn btn-accent btn-lg" type="submit">Envoyer ma préinscription <?= icon('send', 18) ?></button>
-          <span class="caption">Vos données restent confidentielles et ne servent qu'au traitement de votre candidature.</span>
+          <button class="btn btn-accent btn-lg" type="submit"><?= e($form_btn) ?> <?= icon('send', 18) ?></button>
+          <span class="caption"><?= e($form_privacy) ?></span>
         </div>
       </form>
       <?php endif; ?>
@@ -196,17 +213,17 @@ require __DIR__ . '/includes/page-hero.php';
 <section class="section section-alt">
   <div class="container grid-2">
     <div class="reveal">
-      <span class="kicker"><?= icon('download', 15) ?> Documentation</span>
-      <h2>Brochure officielle 2025-2026</h2>
-      <p class="lead" style="margin-top: 1rem;">Retrouvez l'ensemble des filières, conditions et contacts dans la brochure officielle de l'institut, à télécharger et partager.</p>
+      <span class="kicker"><?= icon('download', 15) ?> <?= e($doc_kicker) ?></span>
+      <h2><?= e($doc_titre) ?></h2>
+      <p class="lead" style="margin-top: 1rem;"><?= e($doc_lead) ?></p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="<?= asset('docs/depliant-iat-2026-2027.pdf') ?>" download="Depliant-IAT-Niger-2026-2027.pdf"><?= icon('download', 18) ?> Dépliant &amp; modalités de paiement (PDF)</a>
-        <a class="btn btn-outline" href="<?= asset('img/brochure-2025-2026.jpg') ?>" download="Brochure-IAT-Niger-2025-2026.jpg"><?= icon('download', 18) ?> Brochure 2025-2026</a>
-        <a class="btn btn-outline" href="<?= url('telechargements') ?>">Tous les documents</a>
+        <a class="btn btn-primary" href="<?= asset('docs/depliant-iat-2026-2027.pdf') ?>" download="Depliant-IAT-Niger-2026-2027.pdf"><?= icon('download', 18) ?> <?= e($doc_btn1) ?></a>
+        <a class="btn btn-outline" href="<?= asset('img/' . ltrim($doc_image, '/')) ?>" download="Brochure-IAT-Niger-2025-2026.jpg"><?= icon('download', 18) ?> <?= e($doc_btn2) ?></a>
+        <a class="btn btn-outline" href="<?= url('telechargements') ?>"><?= e($doc_btn3) ?></a>
       </div>
     </div>
     <div class="reveal reveal-delay-1">
-      <img src="<?= asset('img/brochure-2025-2026.jpg') ?>" alt="Brochure IAT Niger 2025-2026 : filières et conditions d'admission" loading="lazy" width="700" height="500" style="border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+      <img src="<?= asset('img/' . ltrim($doc_image, '/')) ?>" alt="Brochure IAT Niger 2025-2026 : filières et conditions d'admission" loading="lazy" width="700" height="500" style="border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
     </div>
   </div>
 </section>

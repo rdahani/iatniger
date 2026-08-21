@@ -573,6 +573,17 @@ admin_head($config['label']);
           if ($page_publique !== null) {
               echo admin_voir_page($page_publique);
           } ?>
+          <?php
+          $textes_page_map = [
+              'faq' => ['faq.php', 'Textes de la page FAQ'],
+              'partenaire' => ['partenaires.php', 'Textes de la page Partenaires'],
+              'video' => ['web-tv.php', 'Textes de la page WEB TV'],
+              'document' => ['telechargements.php', 'Textes de la page Téléchargements'],
+          ];
+          if (isset($textes_page_map[$type])) :
+              [$tf, $tl] = $textes_page_map[$type]; ?>
+          <a class="btn btn-outline" href="<?= url('admin/' . $tf) ?>"><?= icon('edit', 16) ?> <?= e($tl) ?></a>
+          <?php endif; ?>
           <?php if (!$est_section_agregee) : ?>
           <a class="btn btn-primary" href="<?= url('admin/contenu.php?type=' . rawurlencode($type) . ($groupe !== null ? '&groupe=' . rawurlencode($groupe) : '') . '&action=nouvelle') ?>"><?= icon('plus', 16) ?> Ajouter <?= e($config['nouveau']) ?></a>
           <?php endif; ?>

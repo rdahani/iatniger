@@ -35,6 +35,10 @@ $partenaires_defaut = [
 ];
 $partenaires = cms_partenaires() ?: $partenaires_defaut;
 
+$cta_titre = cms_texte('partenaires_cta_titre', "Devenir partenaire de l'IAT");
+$cta_lead = cms_texte('partenaires_cta_lead', 'Entreprise, institution ou université : construisons ensemble des programmes qui servent la jeunesse africaine.');
+$cta_btn = cms_texte('partenaires_cta_btn', 'Proposer un partenariat');
+
 require __DIR__ . '/includes/header.php';
 require __DIR__ . '/includes/page-hero.php';
 ?>
@@ -55,9 +59,9 @@ require __DIR__ . '/includes/page-hero.php';
     </div>
 
     <div class="card reveal" style="margin-top: 3rem; text-align: center; padding: clamp(2rem, 5vw, 3rem);">
-      <h2 class="h3">Devenir partenaire de l'IAT</h2>
-      <p class="lead" style="margin: 0.8rem auto 1.5rem; max-width: 560px;">Entreprise, institution ou université : construisons ensemble des programmes qui servent la jeunesse africaine.</p>
-      <a class="btn btn-primary btn-lg" href="<?= url('contact') ?>">Proposer un partenariat <?= icon('arrow-right', 18) ?></a>
+      <h2 class="h3"><?= e($cta_titre) ?></h2>
+      <p class="lead" style="margin: 0.8rem auto 1.5rem; max-width: 560px;"><?= e($cta_lead) ?></p>
+      <a class="btn btn-primary btn-lg" href="<?= url('contact') ?>"><?= e($cta_btn) ?> <?= icon('arrow-right', 18) ?></a>
     </div>
   </div>
 </section>

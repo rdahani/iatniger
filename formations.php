@@ -10,6 +10,35 @@ $niveaux = niveaux_catalogue();
 $niveau_key = $_GET['niveau'] ?? '';
 $niveau = $niveaux[$niveau_key] ?? null;
 
+$hub_card_link = cms_texte('formations_hub_card_link', 'Voir les filières');
+$overview_kicker = cms_texte('formations_overview_kicker', "Vue d'ensemble");
+$overview_titre = cms_texte('formations_overview_titre', "Les 28 filières de l'IAT");
+$overview_btn = cms_texte('formations_overview_btn', "Conditions d'admission");
+$tertiaire_kicker = cms_texte('formations_tertiaire_kicker', 'Filières tertiaires');
+$tertiaire_titre = cms_texte('formations_tertiaire_titre', 'Gestion, commerce & services');
+$industriel_kicker = cms_texte('formations_industriel_kicker', 'Filières industrielles');
+$industriel_titre = cms_texte('formations_industriel_titre', 'Ingénierie, technologies & industrie');
+$debouches_label = cms_texte('formations_debouches_label', 'Débouchés');
+$fiche_btn = cms_texte('formations_fiche_btn', 'Fiche complète');
+$cta_preinscription = cms_texte('formations_cta_preinscription', 'Déposer ma préinscription');
+$doctorat_essec_titre = cms_texte('formations_doctorat_essec_titre', 'Le partenariat ESSEC — Université de Douala');
+$doctorat_essec_texte = cms_texte('formations_doctorat_essec_texte', "Le partenariat vise à « accompagner les activités de formation et de recherche de l'IAT dans le domaine des Sciences économiques et de Gestion ».");
+$doctorat_essec_items = cms_texte_extra('formations_doctorat_essec_items')['items'] ?? [
+    'Formation académique : Licence, Master et Doctorat',
+    'Formation professionnelle continue',
+    'Mobilité des enseignants et des étudiants',
+    'Projets de recherche et événements scientifiques',
+];
+$doctorat_ecole_titre = cms_texte('formations_doctorat_ecole_titre', "L'École Doctorale ESSEC");
+$doctorat_ecole_texte = cms_texte('formations_doctorat_ecole_texte', "Après le Master de Recherche, poursuivez en thèse dans l'un des quatre domaines de l'École Doctorale :");
+$doctorat_ecole_items = cms_texte_extra('formations_doctorat_ecole_items')['items'] ?? [
+    'Business Economics',
+    'Management des organisations',
+    'Science Juridique',
+    "Science de l'ingénieur",
+];
+$doctorat_contacts = cms_texte('formations_doctorat_contacts', "Points de contact à l'IAT : Cherifa Hamadou Hamidou · Ousseini Adamou Magagi · Bara Boubacar");
+
 if ($niveau !== null) {
     /* ----- Page d'un niveau ----- */
     $page_title = $niveau['titre'] . ' — Formations | IAT Niger';
@@ -55,7 +84,7 @@ if ($niveau === null) : ?>
         </div>
         <h3><?= e($n['titre']) ?></h3>
         <p><?= e($n['description']) ?></p>
-        <span class="card-link">Voir les filières <?= icon('arrow-right', 16) ?></span>
+        <span class="card-link"><?= e($hub_card_link) ?> <?= icon('arrow-right', 16) ?></span>
       </a>
       <?php endforeach; ?>
     </div>
@@ -66,8 +95,8 @@ if ($niveau === null) : ?>
 <section class="section section-alt">
   <div class="container">
     <div class="section-head reveal">
-      <span class="kicker"><?= icon('search', 15) ?> Vue d'ensemble</span>
-      <h2>Les 28 filières de l'IAT</h2>
+      <span class="kicker"><?= icon('search', 15) ?> <?= e($overview_kicker) ?></span>
+      <h2><?= e($overview_titre) ?></h2>
     </div>
     <?php foreach ($niveaux as $key => $n) : $liste_n = formations_par_niveau($key);
         if (!$liste_n) { continue; } ?>
@@ -79,7 +108,7 @@ if ($niveau === null) : ?>
     </ul>
     <?php endforeach; ?>
     <div style="margin-top: 2.5rem;">
-      <a class="btn btn-primary btn-lg" href="<?= url('admission') ?>">Conditions d'admission <?= icon('arrow-right', 18) ?></a>
+      <a class="btn btn-primary btn-lg" href="<?= url('admission') ?>"><?= e($overview_btn) ?> <?= icon('arrow-right', 18) ?></a>
     </div>
   </div>
 </section>
@@ -116,8 +145,8 @@ if ($niveau === null) : ?>
     <?php if ($liste) : ?>
     <?php if ($tertiaires) : ?>
     <div class="section-head reveal">
-      <span class="kicker"><?= icon('briefcase', 15) ?> Filières tertiaires</span>
-      <h2 class="h3">Gestion, commerce &amp; services</h2>
+      <span class="kicker"><?= icon('briefcase', 15) ?> <?= e($tertiaire_kicker) ?></span>
+      <h2 class="h3"><?= e($tertiaire_titre) ?></h2>
     </div>
     <div class="accordion" style="margin-bottom: 3rem;">
       <?php foreach ($tertiaires as $f) : ?>
@@ -133,11 +162,11 @@ if ($niveau === null) : ?>
         <div class="accordion-panel"><div>
           <div class="accordion-content">
             <p style="margin-bottom: 1rem;"><?= e($f['objectif']) ?></p>
-            <h4 style="margin-bottom: 0.6rem;">Débouchés</h4>
+            <h4 style="margin-bottom: 0.6rem;"><?= e($debouches_label) ?></h4>
             <ul class="pill-list">
               <?php foreach ($f['debouches'] as $d) : ?><li><?= e($d) ?></li><?php endforeach; ?>
             </ul>
-            <a class="btn btn-outline" style="margin-top: 1.2rem;" href="<?= url('formation/' . $f['slug']) ?>">Fiche complète <?= icon('arrow-right', 16) ?></a>
+            <a class="btn btn-outline" style="margin-top: 1.2rem;" href="<?= url('formation/' . $f['slug']) ?>"><?= e($fiche_btn) ?> <?= icon('arrow-right', 16) ?></a>
           </div>
         </div></div>
       </div>
@@ -147,8 +176,8 @@ if ($niveau === null) : ?>
 
     <?php if ($industrielles) : ?>
     <div class="section-head reveal">
-      <span class="kicker"><?= icon('wrench', 15) ?> Filières industrielles</span>
-      <h2 class="h3">Ingénierie, technologies &amp; industrie</h2>
+      <span class="kicker"><?= icon('wrench', 15) ?> <?= e($industriel_kicker) ?></span>
+      <h2 class="h3"><?= e($industriel_titre) ?></h2>
     </div>
     <div class="accordion">
       <?php foreach ($industrielles as $f) : ?>
@@ -164,11 +193,11 @@ if ($niveau === null) : ?>
         <div class="accordion-panel"><div>
           <div class="accordion-content">
             <p style="margin-bottom: 1rem;"><?= e($f['objectif']) ?></p>
-            <h4 style="margin-bottom: 0.6rem;">Débouchés</h4>
+            <h4 style="margin-bottom: 0.6rem;"><?= e($debouches_label) ?></h4>
             <ul class="pill-list">
               <?php foreach ($f['debouches'] as $d) : ?><li><?= e($d) ?></li><?php endforeach; ?>
             </ul>
-            <a class="btn btn-outline" style="margin-top: 1.2rem;" href="<?= url('formation/' . $f['slug']) ?>">Fiche complète <?= icon('arrow-right', 16) ?></a>
+            <a class="btn btn-outline" style="margin-top: 1.2rem;" href="<?= url('formation/' . $f['slug']) ?>"><?= e($fiche_btn) ?> <?= icon('arrow-right', 16) ?></a>
           </div>
         </div></div>
       </div>
@@ -182,32 +211,30 @@ if ($niveau === null) : ?>
     <div class="grid-2" style="margin-top: 1rem;">
       <div class="card reveal">
         <span class="card-icon"><?= icon('handshake', 24) ?></span>
-        <h3>Le partenariat ESSEC — Université de Douala</h3>
-        <p style="margin-bottom: 1rem;">Le partenariat vise à « accompagner les activités de formation et de recherche de l'IAT dans le domaine des Sciences économiques et de Gestion ».</p>
+        <h3><?= e($doctorat_essec_titre) ?></h3>
+        <p style="margin-bottom: 1rem;"><?= e($doctorat_essec_texte) ?></p>
         <ul class="check-list">
-          <li><?= icon('check', 18) ?><span>Formation académique : Licence, Master et Doctorat</span></li>
-          <li><?= icon('check', 18) ?><span>Formation professionnelle continue</span></li>
-          <li><?= icon('check', 18) ?><span>Mobilité des enseignants et des étudiants</span></li>
-          <li><?= icon('check', 18) ?><span>Projets de recherche et événements scientifiques</span></li>
+          <?php foreach ($doctorat_essec_items as $item) : ?>
+          <li><?= icon('check', 18) ?><span><?= e($item) ?></span></li>
+          <?php endforeach; ?>
         </ul>
       </div>
       <div class="card reveal reveal-delay-1">
         <span class="card-icon"><?= icon('flask', 24) ?></span>
-        <h3>L'École Doctorale ESSEC</h3>
-        <p style="margin-bottom: 1rem;">Après le Master de Recherche, poursuivez en thèse dans l'un des quatre domaines de l'École Doctorale :</p>
+        <h3><?= e($doctorat_ecole_titre) ?></h3>
+        <p style="margin-bottom: 1rem;"><?= e($doctorat_ecole_texte) ?></p>
         <ul class="check-list">
-          <li><?= icon('check', 18) ?><span>Business Economics</span></li>
-          <li><?= icon('check', 18) ?><span>Management des organisations</span></li>
-          <li><?= icon('check', 18) ?><span>Science Juridique</span></li>
-          <li><?= icon('check', 18) ?><span>Science de l'ingénieur</span></li>
+          <?php foreach ($doctorat_ecole_items as $item) : ?>
+          <li><?= icon('check', 18) ?><span><?= e($item) ?></span></li>
+          <?php endforeach; ?>
         </ul>
-        <p class="caption" style="margin-top: 1rem;">Points de contact à l'IAT : Cherifa Hamadou Hamidou · Ousseini Adamou Magagi · Bara Boubacar</p>
+        <p class="caption" style="margin-top: 1rem;"><?= e($doctorat_contacts) ?></p>
       </div>
     </div>
     <?php endif; ?>
 
     <div class="text-center" style="margin-top: 3.5rem;">
-      <a class="btn btn-accent btn-lg" href="<?= url('admission#preinscription') ?>">Déposer ma préinscription <?= icon('arrow-right', 18) ?></a>
+      <a class="btn btn-accent btn-lg" href="<?= url('admission#preinscription') ?>"><?= e($cta_preinscription) ?> <?= icon('arrow-right', 18) ?></a>
     </div>
   </div>
 </section>

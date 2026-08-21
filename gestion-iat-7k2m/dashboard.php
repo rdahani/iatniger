@@ -400,13 +400,21 @@ if (!$is_local && admin_can('utilisateurs')) {
       </div>
       <?php
         $guide_zones = [
-            ['perm' => 'accueil', 'icon' => 'home', 'zone' => "Page d'accueil", 'detail' => 'Hero, fondateur, stats, CSP, diaporama', 'href' => 'admin/accueil.php'],
+            ['perm' => 'accueil', 'icon' => 'home', 'zone' => "Page d'accueil", 'detail' => 'Tous les titres, textes, photos, stats, CSP, galerie', 'href' => 'admin/accueil.php'],
             ['perm' => 'formations', 'icon' => 'graduation-cap', 'zone' => 'Formations & menu', 'detail' => 'Niveaux, filières, cartes du mega-menu', 'href' => 'admin/formations.php'],
+            ['perm' => 'formations', 'icon' => 'file-text', 'zone' => 'Textes formations', 'detail' => 'Hub, pages niveaux, blocs Doctorat', 'href' => 'admin/formations-textes.php'],
             ['perm' => 'parametres', 'icon' => 'menu', 'zone' => 'Bandeau du menu', 'detail' => 'Promo « Inscriptions ouvertes »', 'href' => 'admin/navigation.php'],
             ['perm' => 'actualites', 'icon' => 'newspaper', 'zone' => 'Actualités', 'detail' => 'Articles du site', 'href' => 'admin/actualites.php'],
-            ['perm' => 'a-propos', 'icon' => 'book-open', 'zone' => 'À propos', 'detail' => 'Mission, valeurs, histoire, direction', 'href' => 'admin/contenu.php?type=section&groupe=a-propos'],
-            ['perm' => 'csp', 'icon' => 'school', 'zone' => 'CSP Algoza', 'detail' => 'Atouts, niveaux, tarifs', 'href' => 'admin/contenu.php?type=section&groupe=csp-algoza'],
-            ['perm' => 'parametres', 'icon' => 'settings', 'zone' => 'Coordonnées & footer', 'detail' => 'Téléphones, e-mail, adresse', 'href' => 'admin/parametres.php'],
+            ['perm' => 'a-propos', 'icon' => 'book-open', 'zone' => 'À propos', 'detail' => 'Mission, historique, direction, enseignants', 'href' => 'admin/a-propos.php'],
+            ['perm' => 'admission', 'icon' => 'user-plus', 'zone' => 'Admission', 'detail' => 'Conditions, formulaire, documentation', 'href' => 'admin/admission.php'],
+            ['perm' => 'vie-etudiante', 'icon' => 'heart', 'zone' => 'Vie étudiante', 'detail' => 'BDE, clubs, alumni', 'href' => 'admin/vie-etudiante.php'],
+            ['perm' => 'csp', 'icon' => 'school', 'zone' => 'CSP Algoza', 'detail' => 'Atouts, niveaux, tarifs, CTA', 'href' => 'admin/csp-algoza.php'],
+            ['perm' => 'partenaires', 'icon' => 'handshake', 'zone' => 'Partenaires', 'detail' => 'CTA et logos partenaires', 'href' => 'admin/partenaires.php'],
+            ['perm' => 'faq', 'icon' => 'help-circle', 'zone' => 'FAQ', 'detail' => 'CTA et questions/réponses', 'href' => 'admin/faq.php'],
+            ['perm' => 'web-tv', 'icon' => 'play', 'zone' => 'WEB TV', 'detail' => 'Légendes et vidéos', 'href' => 'admin/web-tv.php'],
+            ['perm' => 'documents', 'icon' => 'download', 'zone' => 'Téléchargements', 'detail' => 'Documents et modalités de paiement', 'href' => 'admin/telechargements.php'],
+            ['perm' => 'parametres', 'icon' => 'map-pin', 'zone' => 'Contact', 'detail' => 'Textes formulaire et carte', 'href' => 'admin/contact.php'],
+            ['perm' => 'parametres', 'icon' => 'settings', 'zone' => 'Coordonnées & footer', 'detail' => 'Téléphones, e-mail, adresse, CTA footer', 'href' => 'admin/parametres.php'],
             ['perm' => 'pages', 'icon' => 'file-text', 'zone' => 'SEO des pages', 'detail' => 'Titres, descriptions, textes des heros', 'href' => 'admin/pages.php'],
         ];
         ?>

@@ -293,6 +293,180 @@ function admin_voir_page(string $chemin, string $label = 'Voir la page'): string
     return '<a class="btn btn-outline" href="' . e(url($chemin)) . '" target="_blank" rel="noopener">' . icon('eye', 16) . ' ' . e($label) . '</a>';
 }
 
+/**
+ * Enregistre les textes d'une page (clés cms_items type=texte).
+ * @param array<string, array> $textes_config
+ */
+function admin_save_page_textes(PDO $pdo, array $textes_config, array $post_textes): int
+{
+    $n = 0;
+    $st = $pdo->prepare('INSERT INTO cms_items (type, cle, contenu, extra) VALUES (?,?,?,?)
+        ON DUPLICATE KEY UPDATE contenu = VALUES(contenu), extra = VALUES(extra)');
+    foreach ($textes_config as $cle => $cfg) {
+        $contenu = null;
+        $extra = null;
+        if (!empty($cfg['media_liste'])) {
+            $raw = $post_textes[$cle] ?? [];
+            if (!is_array($raw)) {
+                $raw = preg_split("/\r\n|\n/", (string) $raw) ?: [];
+            }
+            $items = array_values(array_filter(array_map('trim', $raw), static fn ($v) => $v !== ''));
+            $extra = cms_extra_encode(['items' => $items]);
+        } elseif (!empty($cfg['liste'])) {
+            $items = array_values(array_filter(array_map('trim', explode("\n", (string) ($post_textes[$cle] ?? '')))));
+            $extra = cms_extra_encode(['items' => $items]);
+        } else {
+            $contenu = trim((string) ($post_textes[$cle] ?? ''));
+        }
+        $st->execute(['texte', $cle, $contenu, $extra]);
+        $n++;
+    }
+    return $n;
+}
+
+/**
+ * Charge les lignes texte pour un ensemble de clés.
+ * @param list<string> $cles
+ * @return array<string, ?array>
+ */
+function admin_load_page_textes(PDO $pdo, array $cles): array
+{
+    $textes = [];
+    $st = $pdo->prepare('SELECT * FROM cms_items WHERE type = ? AND cle = ?');
+    foreach ($cles as $cle) {
+        $st->execute(['texte', $cle]);
+        $row = $st->fetch();
+        if ($row) {
+            $row['extra'] = $row['extra'] !== null && $row['extra'] !== '' ? (json_decode((string) $row['extra'], true) ?: []) : [];
+        }
+        $textes[$cle] = $row ?: null;
+    }
+    return $textes;
+}
+
+/**
+ * Affiche le formulaire d'édition des textes d'une page (même UX que l'accueil).
+ * @param array<string, array> $textes_config
+ * @param array<string, string> $textes_defauts
+ * @param array<string, ?array> $textes
+ * @param list<array{label: string, href: string}> $liens
+ */
+function admin_render_page_textes_form(string $action_url, array $textes_config, array $textes_defauts, array $textes, array $liens = []): void
+{
+    ?>
+    <div class="admin-card" style="margin-bottom: 1.6rem;">
+      <h2 class="h3" style="margin-bottom: 0.5rem;">Textes et images de la page</h2>
+      <p class="caption" style="margin-bottom: 1.2rem;">Modifiez les titres, accroches, boutons et photos. Un seul enregistrement suffit pour tout le formulaire.</p>
+      <form method="post" action="<?= e($action_url) ?>">
+        <input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>">
+        <input type="hidden" name="op" value="enregistrer_textes">
+        <div class="form-grid">
+          <?php
+          $section_courante = '';
+          foreach ($textes_config as $cle => $cfg) :
+              $section = (string) ($cfg['section'] ?? '');
+              if ($section !== $section_courante) :
+                  $premiere = $section_courante === '';
+                  $section_courante = $section;
+                  ?>
+          <div class="form-field full" style="margin-top: <?= $premiere ? '0' : '0.8' ?>rem; padding-top: 0.8rem; border-top: <?= $premiere ? 'none' : '1px solid var(--border, #e5e7eb)' ?>;">
+            <h3 class="h3" style="margin: 0;"><?= e($section) ?></h3>
+            <?php if (!empty($cfg['aide'])) : ?>
+            <p class="caption" style="margin: 0.35rem 0 0;"><?= e((string) $cfg['aide']) ?></p>
+            <?php endif; ?>
+          </div>
+                  <?php
+              endif;
+              $row = $textes[$cle] ?? null;
+              $defaut = $textes_defauts[$cle] ?? '';
+              if (!empty($cfg['media'])) {
+                  admin_media_field('textes[' . $cle . ']', (string) ($row['contenu'] ?? $defaut), [
+                      'id' => 'tx-' . preg_replace('/[^a-z0-9_-]/i', '-', $cle),
+                      'label' => $cfg['label'],
+                      'base' => 'img',
+                      'accept' => 'image',
+                      'full' => true,
+                  ]);
+                  continue;
+              }
+              if (!empty($cfg['liste'])) {
+                  $valeur = $row ? implode("\n", $row['extra']['items'] ?? []) : $defaut;
+              } else {
+                  $valeur = (string) ($row['contenu'] ?? $defaut);
+              }
+              ?>
+          <div class="form-field full">
+            <label for="tx-<?= e($cle) ?>"><?= e($cfg['label']) ?></label>
+            <?php if (!empty($cfg['court'])) : ?>
+            <input type="text" id="tx-<?= e($cle) ?>" name="textes[<?= e($cle) ?>]" value="<?= e($valeur) ?>">
+            <?php else : ?>
+            <textarea id="tx-<?= e($cle) ?>" name="textes[<?= e($cle) ?>]" style="min-height: <?= !empty($cfg['liste']) ? '90' : '70' ?>px;"><?= e($valeur) ?></textarea>
+            <?php endif; ?>
+          </div>
+          <?php endforeach; ?>
+        </div>
+        <button class="btn btn-primary btn-lg" type="submit" style="margin-top: 1.2rem;">Enregistrer les textes et images</button>
+      </form>
+    </div>
+    <?php if ($liens) : ?>
+    <div class="admin-card">
+      <h2 class="h3" style="margin-bottom: 1rem;">Autres blocs de cette page</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.8rem;">
+        <?php foreach ($liens as $l) : ?>
+        <a class="btn btn-outline" href="<?= url($l['href']) ?>"><?= e($l['label']) ?></a>
+        <?php endforeach; ?>
+      </div>
+    </div>
+    <?php endif;
+}
+
+/** Écran admin complet pour une page définie dans cms_page_textes_defs(). */
+function admin_run_page_textes_editor(string $page_id): void
+{
+    $defs = cms_page_textes_defs();
+    if (!isset($defs[$page_id])) {
+        http_response_code(404);
+        exit('Page inconnue.');
+    }
+    $def = $defs[$page_id];
+    require_permission($def['permission']);
+
+    $pdo = admin_require_cms();
+    $notice = '';
+    $erreur = '';
+
+    if ($pdo !== null && $_SERVER['REQUEST_METHOD'] === 'POST' && csrf_check($_POST['csrf'] ?? null)) {
+        if (($_POST['op'] ?? '') === 'enregistrer_textes') {
+            $n = admin_save_page_textes($pdo, $def['textes'], $_POST['textes'] ?? []);
+            $notice = 'Textes mis à jour (' . $n . ').';
+        }
+    }
+
+    $textes = [];
+    if ($pdo !== null) {
+        $textes = admin_load_page_textes($pdo, array_keys($def['textes']));
+    }
+
+    admin_head($def['label']);
+    $admin_file = $def['admin_file'] ?? ($page_id . '.php');
+    ?>
+<div class="admin-layout">
+  <?php admin_sidebar($def['sidebar']); ?>
+  <main class="admin-main">
+    <div class="admin-header"><h1 class="h2"><?= e($def['label']) ?></h1><?= admin_voir_page($def['public'], 'Voir la page') ?></div>
+    <?php admin_flash($notice, $erreur); ?>
+    <?php if ($pdo === null) : ?>
+      <div class="alert alert-danger"><?= icon('alert-triangle', 18) ?><div>Le CMS n'est pas encore installé. <a href="<?= url('admin/install-cms.php') ?>">Installer le CMS</a>.</div></div>
+    <?php else :
+        admin_render_page_textes_form(url('admin/' . $admin_file), $def['textes'], $def['defauts'], $textes, $def['liens'] ?? []);
+    endif; ?>
+  </main>
+</div>
+</body>
+</html>
+    <?php
+}
+
 /** En-tête de liste CRUD standard. */
 function admin_list_header(string $titre, string $new_url, string $new_label = 'Ajouter'): void
 {

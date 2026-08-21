@@ -2,8 +2,11 @@
 /** Pied de page commun : CTA, newsletter, colonnes de liens, coordonnées. */
 $footer_cta_titre = setting('footer_cta_titre', "Prêt·e à rejoindre un pôle d'excellence ?");
 $footer_cta_texte = setting('footer_cta_texte', 'Inscriptions ouvertes — BTS, Licences, Masters et Doctorat. Rejoignez plus de 30 000 diplômés.');
+$footer_cta_btn1 = setting('footer_cta_btn1', "Je m'inscris");
+$footer_cta_btn2 = setting('footer_cta_btn2', 'Nous contacter');
 $footer_about = setting('footer_about', "L'Institut Africain de Technologie forme depuis 1999 les cadres et techniciens qui construisent le Niger et l'Afrique de demain.");
 $footer_mention = setting('footer_mention', "Agréé par arrêtés N° 0143 & 0233/MEN/DEPRI/DETFP (1999) · Diplômes accrédités CAMES / ANAQ-SUP");
+$footer_newsletter_label = setting('footer_newsletter_label', 'Newsletter — restez informé·e');
 $footer_address = setting('site_address', SITE_ADDRESS);
 $footer_phone_1 = setting('site_phone_1', SITE_PHONE_1);
 $footer_phone_2 = setting('site_phone_2', SITE_PHONE_2);
@@ -13,7 +16,7 @@ $footer_full_name = setting('site_full_name', SITE_FULL_NAME);
 $footer_tagline = setting('site_tagline', SITE_TAGLINE);
 $wa_raw = setting('site_whatsapp', defined('SITE_WHATSAPP') ? SITE_WHATSAPP : '');
 $wa_digits = preg_replace('/\D+/', '', (string) $wa_raw) ?: '';
-$wa_text = rawurlencode('Bonjour, je souhaite des informations sur l\'IAT Niger.');
+$wa_text = rawurlencode(setting('footer_whatsapp_prefill', 'Bonjour, je souhaite des informations sur l\'IAT Niger.'));
 $wa_url = $wa_digits !== '' ? 'https://wa.me/' . $wa_digits . '?text=' . $wa_text : '';
 ?>
 </main>
@@ -27,8 +30,8 @@ $wa_url = $wa_digits !== '' ? 'https://wa.me/' . $wa_digits . '?text=' . $wa_tex
         <p><?= e($footer_cta_texte) ?></p>
       </div>
       <div class="footer-cta-actions">
-        <a class="btn btn-accent btn-lg" href="<?= url('admission#preinscription') ?>">Je m'inscris <?= icon('arrow-right', 18) ?></a>
-        <a class="btn btn-ghost-light btn-lg" href="<?= url('contact') ?>">Nous contacter</a>
+        <a class="btn btn-accent btn-lg" href="<?= url('admission#preinscription') ?>"><?= e($footer_cta_btn1) ?> <?= icon('arrow-right', 18) ?></a>
+        <a class="btn btn-ghost-light btn-lg" href="<?= url('contact') ?>"><?= e($footer_cta_btn2) ?></a>
       </div>
     </div>
 
@@ -74,7 +77,7 @@ $wa_url = $wa_digits !== '' ? 'https://wa.me/' . $wa_digits . '?text=' . $wa_tex
           <li><?= icon('mail', 18) ?><a href="mailto:<?= e($footer_email) ?>"><?= e($footer_email) ?></a></li>
         </ul>
         <form class="newsletter" method="post" action="<?= url('newsletter.php') ?>" aria-label="Inscription à la newsletter">
-          <label for="nl-email">Newsletter — restez informé·e</label>
+          <label for="nl-email"><?= e($footer_newsletter_label) ?></label>
           <div class="newsletter-row">
             <input type="email" id="nl-email" name="email" placeholder="Votre adresse e-mail" required autocomplete="email">
             <input type="text" name="site_web" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">

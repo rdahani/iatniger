@@ -16,8 +16,10 @@ $hero_texte = "De quelques salles louées au rond-point Gadafawa à un institut 
 cms_apply_page('a-propos', $page_title, $page_desc, $hero_titre, $hero_texte);
 
 /* ----- Contenu éditable (CMS avec fallback sur les valeurs par défaut) ----- */
+$mission_kicker = cms_texte('a-propos_mission_kicker', 'Notre mission');
 $mission_titre = cms_texte('a-propos_mission_titre', "Former les talents qui développent l'Afrique");
 $mission_texte = cms_texte('a-propos_mission_texte', "« Donner une formation de haut niveau adaptée au contexte africain et du monde contemporain afin de mettre à la disposition du marché » les compétences dont les entreprises ont besoin, et mobiliser les ressources intellectuelles pour le développement économique du continent.");
+$mission_image = cms_texte('a-propos_mission_image', 'campus/immeuble-iat.jpg');
 
 $valeurs = cms_cartes('a-propos-valeurs') ?: [
     ['titre' => 'Excellence', 'contenu' => 'Des programmes exigeants, des enseignants de rang A'],
@@ -42,9 +44,17 @@ $timeline = cms_timeline('a-propos') ?: [
     ['titre' => '2026', 'sous_titre' => "L'ère des laboratoires", 'contenu' => "Inauguration de deux laboratoires modernes (Génie Électrique et Génie Civil) et prix Alkalami d'Or de l'excellence académique. L'IAT rejoint aussi le Hub de Peering Fédéré de Niger-REN."],
 ];
 
+$historique_kicker = cms_texte('a-propos_historique_kicker', 'Historique');
+$historique_titre = cms_texte('a-propos_historique_titre', 'Plus de 25 ans de croissance continue');
+
+$direction_titre = cms_texte('a-propos_direction_titre', 'Le mot de la Direction');
+$direction_photo = cms_texte('a-propos_direction_photo', 'fondateur-hamadou-hamidou.jpg');
 $direction_texte = cms_texte('a-propos_direction', "Depuis 1999, l'Institut Africain de Technologie poursuit une seule ambition : offrir à la jeunesse nigérienne et africaine une formation à la hauteur de son potentiel. Nos quatre valeurs — l'excellence, la qualité, la transparence et l'ouverture au monde — ne sont pas des slogans : elles se lisent dans nos accréditations CAMES, dans nos laboratoires, dans les carrières de nos 30 000 diplômés.\n\nChoisir l'IAT, c'est rejoindre une institution qui investit continuellement dans ses infrastructures, son corps enseignant et ses partenariats internationaux, pour que chaque étudiant reparte avec bien plus qu'un diplôme : un métier, une méthode et un réseau.");
 $direction_paragraphes = preg_split('/\n\s*\n/', trim($direction_texte));
+$direction_signature = cms_texte('a-propos_direction_signature', "M. Hamadou Hamidou — Fondateur de l'IAT Niger");
 
+$enseignants_kicker = cms_texte('a-propos_enseignants_kicker', 'Corps enseignant');
+$enseignants_titre = cms_texte('a-propos_enseignants_titre', '36 enseignants-chercheurs de rang A');
 $enseignants_intro = cms_texte('a-propos_enseignants_intro', 'Les Masters professionnels et le Master de Recherche sont animés par des enseignants-chercheurs de rang A — professeurs titulaires du CAMES, professeurs agrégés et maîtres de conférences.');
 
 $enseignants_cartes = cms_cartes('a-propos-enseignants') ?: [
@@ -62,7 +72,7 @@ require __DIR__ . '/includes/page-hero.php';
   <div class="container">
     <div class="grid-2">
       <div class="reveal">
-        <span class="kicker"><?= icon('target', 15) ?> Notre mission</span>
+        <span class="kicker"><?= icon('target', 15) ?> <?= e($mission_kicker) ?></span>
         <h2><?= e($mission_titre) ?></h2>
         <p class="lead" style="margin-top:1rem;"><?= e($mission_texte) ?></p>
         <ul class="check-list" style="margin-top:1.5rem;">
@@ -72,7 +82,7 @@ require __DIR__ . '/includes/page-hero.php';
         </ul>
       </div>
       <div class="reveal reveal-delay-1">
-        <img src="<?= asset('img/campus/immeuble-iat.jpg') ?>" alt="L'immeuble principal de l'IAT à Niamey" loading="lazy" width="720" height="540" style="border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);">
+        <img src="<?= asset('img/' . ltrim($mission_image, '/')) ?>" alt="L'immeuble principal de l'IAT à Niamey" loading="lazy" width="720" height="540" style="border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);">
       </div>
     </div>
   </div>
@@ -94,8 +104,8 @@ require __DIR__ . '/includes/page-hero.php';
 <section class="section section-alt" id="historique">
   <div class="container">
     <div class="section-head reveal">
-      <span class="kicker"><?= icon('clock', 15) ?> Historique</span>
-      <h2>Plus de 25 ans de croissance continue</h2>
+      <span class="kicker"><?= icon('clock', 15) ?> <?= e($historique_kicker) ?></span>
+      <h2><?= e($historique_titre) ?></h2>
     </div>
     <div class="timeline">
       <?php foreach ($timeline as $t) : ?>
@@ -113,14 +123,14 @@ require __DIR__ . '/includes/page-hero.php';
 <section class="section" id="direction">
   <div class="container">
     <div class="card direction-card reveal">
-      <img src="<?= asset('img/fondateur-hamadou-hamidou.jpg') ?>" alt="M. Hamadou Hamidou, fondateur de l'IAT Niger" loading="lazy" width="500" height="713" style="border-radius: var(--radius); box-shadow: var(--shadow-md); width: 100%;">
+      <img src="<?= asset('img/' . ltrim($direction_photo, '/')) ?>" alt="M. Hamadou Hamidou, fondateur de l'IAT Niger" loading="lazy" width="500" height="713" style="border-radius: var(--radius); box-shadow: var(--shadow-md); width: 100%;">
       <div>
         <span class="quote-icon" style="color: var(--accent);"><?= icon('quote', 34) ?></span>
-        <h2 style="margin: 1rem 0;">Le mot de la Direction</h2>
+        <h2 style="margin: 1rem 0;"><?= e($direction_titre) ?></h2>
         <?php foreach ($direction_paragraphes as $p) : ?>
         <p style="color: var(--text-2); font-size: 1.05rem; margin-bottom: 1.2rem;"><?= e($p) ?></p>
         <?php endforeach; ?>
-        <p style="font-family: var(--font-display); font-weight: 700;">M. Hamadou Hamidou — Fondateur de l'IAT Niger</p>
+        <p style="font-family: var(--font-display); font-weight: 700;"><?= e($direction_signature) ?></p>
       </div>
     </div>
   </div>
@@ -130,8 +140,8 @@ require __DIR__ . '/includes/page-hero.php';
 <section class="section section-alt" id="enseignants">
   <div class="container">
     <div class="section-head reveal">
-      <span class="kicker"><?= icon('users', 15) ?> Corps enseignant</span>
-      <h2>36 enseignants-chercheurs de rang A</h2>
+      <span class="kicker"><?= icon('users', 15) ?> <?= e($enseignants_kicker) ?></span>
+      <h2><?= e($enseignants_titre) ?></h2>
       <p class="lead"><?= e($enseignants_intro) ?></p>
     </div>
     <div class="grid-3">

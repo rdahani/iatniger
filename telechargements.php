@@ -79,6 +79,19 @@ $documents_defaut = [
 ];
 $documents = cms_documents() ?: $documents_defaut;
 
+$dl_btn = cms_texte('telechargements_dl_btn', 'Télécharger');
+$paiement_kicker = cms_texte('telechargements_paiement_kicker', 'Modalités de paiement');
+$paiement_titre = cms_texte('telechargements_paiement_titre', 'Comment régler les frais de scolarité ?');
+$paiement_texte = cms_texte('telechargements_paiement_texte', 'Les modalités de paiement officielles (montants par filière, échéanciers et facilités) sont détaillées dans le dépliant 2026-2027. Pour toute question ou situation particulière, le service scolarité vous accompagne.');
+$paiement_items = cms_texte_extra('telechargements_paiement_items')['items'] ?? [
+    'Paiement au service scolarité du campus (rond-point Gadafawa, Yantala)',
+    'Échéanciers détaillés par niveau dans le dépliant officiel',
+    'Réductions familles nombreuses au CSP Algoza (3 inscrits et plus)',
+];
+$paiement_btn1 = cms_texte('telechargements_paiement_btn1', 'Dépliant & modalités (PDF)');
+$paiement_btn2 = cms_texte('telechargements_paiement_btn2', 'Scolarité');
+$paiement_btn3 = cms_texte('telechargements_paiement_btn3', 'Poser une question');
+
 require __DIR__ . '/includes/header.php';
 require __DIR__ . '/includes/page-hero.php';
 ?>
@@ -97,7 +110,7 @@ require __DIR__ . '/includes/page-hero.php';
         <p><?= e($d['desc']) ?></p>
         <a class="btn btn-primary" style="margin-top: 1.2rem; align-self: flex-start;"
            href="<?= asset($d['fichier']) ?>" download="<?= e($d['nom_dl']) ?>">
-          <?= icon('download', 17) ?> Télécharger
+          <?= icon('download', 17) ?> <?= e($dl_btn) ?>
         </a>
       </article>
       <?php endforeach; ?>
@@ -107,19 +120,19 @@ require __DIR__ . '/includes/page-hero.php';
     <div class="card reveal" style="margin-top: 3rem; padding: clamp(1.8rem, 4vw, 2.8rem);">
       <div class="grid-2">
         <div>
-          <span class="kicker"><?= icon('landmark', 15) ?> Modalités de paiement</span>
-          <h2 class="h3" style="margin-bottom: 0.8rem;">Comment régler les frais de scolarité ?</h2>
-          <p style="color: var(--text-2); margin-bottom: 1rem;">Les modalités de paiement officielles (montants par filière, échéanciers et facilités) sont détaillées dans le dépliant 2026-2027. Pour toute question ou situation particulière, le service scolarité vous accompagne.</p>
+          <span class="kicker"><?= icon('landmark', 15) ?> <?= e($paiement_kicker) ?></span>
+          <h2 class="h3" style="margin-bottom: 0.8rem;"><?= e($paiement_titre) ?></h2>
+          <p style="color: var(--text-2); margin-bottom: 1rem;"><?= e($paiement_texte) ?></p>
           <ul class="check-list">
-            <li><?= icon('check', 18) ?><span>Paiement au service scolarité du campus (rond-point Gadafawa, Yantala)</span></li>
-            <li><?= icon('check', 18) ?><span>Échéanciers détaillés par niveau dans le dépliant officiel</span></li>
-            <li><?= icon('check', 18) ?><span>Réductions familles nombreuses au CSP Algoza (3 inscrits et plus)</span></li>
+            <?php foreach ($paiement_items as $item) : ?>
+            <li><?= icon('check', 18) ?><span><?= e($item) ?></span></li>
+            <?php endforeach; ?>
           </ul>
         </div>
         <div style="display: flex; flex-direction: column; gap: 0.9rem; justify-content: center;">
-          <a class="btn btn-accent btn-lg" href="<?= asset('docs/depliant-iat-2026-2027.pdf') ?>" download="Depliant-IAT-Niger-2026-2027.pdf"><?= icon('download', 18) ?> Dépliant &amp; modalités (PDF)</a>
-          <a class="btn btn-outline btn-lg" href="tel:+22720752940"><?= icon('phone', 18) ?> Scolarité : <?= e(SITE_PHONE_1) ?></a>
-          <a class="btn btn-outline btn-lg" href="<?= url('contact') ?>"><?= icon('mail', 18) ?> Poser une question</a>
+          <a class="btn btn-accent btn-lg" href="<?= asset('docs/depliant-iat-2026-2027.pdf') ?>" download="Depliant-IAT-Niger-2026-2027.pdf"><?= icon('download', 18) ?> <?= e($paiement_btn1) ?></a>
+          <a class="btn btn-outline btn-lg" href="tel:+22720752940"><?= icon('phone', 18) ?> <?= e($paiement_btn2) ?> : <?= e(SITE_PHONE_1) ?></a>
+          <a class="btn btn-outline btn-lg" href="<?= url('contact') ?>"><?= icon('mail', 18) ?> <?= e($paiement_btn3) ?></a>
         </div>
       </div>
     </div>

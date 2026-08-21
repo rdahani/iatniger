@@ -18,8 +18,9 @@ $hero_kicker = cms_texte('accueil_hero_kicker', 'Accrédité CAMES · ANAQ-SUP �
 $hero_h1 = cms_texte('accueil_hero_h1', $hero_titre);
 $hero_lead = cms_texte('accueil_hero_lead', "L'Institut Africain de Technologie forme les cadres et techniciens qui transforment le Niger et l'Afrique : 28 filières du Bac Pro au Doctorat, des laboratoires modernes et 25 ans d'expérience.");
 $hero_trust = cms_texte_extra('accueil_hero_trust')['items'] ?? ['16 diplômes accrédités CAMES', 'Système LMD', 'Laboratoires équipés'];
-
-$hero_h1_accent = "un pôle d'excellence";
+$hero_h1_accent = cms_texte('accueil_hero_h1_accent', "un pôle d'excellence");
+$hero_btn1 = cms_texte('accueil_hero_btn1', "Je m'inscris maintenant");
+$hero_btn2 = cms_texte('accueil_hero_btn2', 'Découvrir les formations');
 
 $stats_accueil = cms_stats('accueil') ?: [
     ['titre' => "années d'expérience", 'extra' => ['valeur' => 25, 'suffixe' => '+']],
@@ -37,6 +38,10 @@ $cartes_pourquoi = cms_cartes('accueil-pourquoi') ?: [
     ['titre' => 'Vie étudiante riche', 'contenu' => "BDE actif, clubs engagés, sport, culture, voyages d'études et actions citoyennes : un campus où l'on apprend aussi à devenir un leader.", 'extra' => ['icone' => 'heart']],
 ];
 
+$pourquoi_kicker = cms_texte('accueil_pourquoi_kicker', "Pourquoi choisir l'IAT ?");
+$pourquoi_titre = cms_texte('accueil_pourquoi_titre', "Une formation d'excellence, reconnue en Afrique et au-delà");
+$pourquoi_lead = cms_texte('accueil_pourquoi_lead', "Quatre valeurs guident l'institut depuis sa création : l'excellence, la qualité, la transparence et l'ouverture au monde.");
+
 $csp_titre = cms_texte('accueil_csp_titre', "CSP Algoza : l'excellence dès le plus jeune âge");
 $csp_texte = cms_texte('accueil_csp_texte', "Le Complexe Scolaire Privé Algoza accueille vos enfants de la maternelle au baccalauréat : anglais renforcé, un ordinateur par élève, cantine et classes de 25 élèves maximum.");
 $csp_liste = cms_texte_extra('accueil_csp_liste')['items'] ?? [
@@ -44,6 +49,30 @@ $csp_liste = cms_texte_extra('accueil_csp_liste')['items'] ?? [
     'Collège & lycée — séries A, C et D, 4 h d\'anglais par semaine',
     'Cantine quotidienne et jardin potager pédagogique',
 ];
+$csp_kicker = cms_texte('accueil_csp_kicker', 'Groupe IAT');
+$csp_image = cms_texte('accueil_csp_image', 'campus/immeuble-iat.jpg');
+$csp_btn1 = cms_texte('accueil_csp_btn1', 'Découvrir le CSP Algoza');
+$csp_btn2 = cms_texte('accueil_csp_btn2', 'Nous contacter');
+$csp_badge_titre = cms_texte('accueil_csp_badge_titre', 'Maternelle → Bac');
+$csp_badge_sous = cms_texte('accueil_csp_badge_sous', 'Excellence dès le plus jeune âge');
+
+$programmes_kicker = cms_texte('accueil_programmes_kicker', 'Nos programmes');
+$programmes_titre = cms_texte('accueil_programmes_titre', 'Du BEPC au Doctorat, un parcours complet');
+$programmes_lead = cms_texte('accueil_programmes_lead', '28 filières tertiaires et industrielles, organisées en quatre niveaux pour accompagner chaque étape de votre parcours.');
+
+$actus_kicker = cms_texte('accueil_actus_kicker', 'Actualités');
+$actus_titre = cms_texte('accueil_actus_titre', "La vie de l'institut");
+$actus_btn = cms_texte('accueil_actus_btn', 'Toutes les actualités');
+
+$temoignages_kicker = cms_texte('accueil_temoignages_kicker', 'Ils nous font confiance');
+$temoignages_titre = cms_texte('accueil_temoignages_titre', 'La parole à nos anciens');
+
+$galerie_kicker = cms_texte('accueil_galerie_kicker', 'Galerie');
+$galerie_titre = cms_texte('accueil_galerie_titre', 'Le campus en images');
+$galerie_btn = cms_texte('accueil_galerie_btn', 'Voir toute la galerie');
+
+$partenaires_kicker = cms_texte('accueil_partenaires_kicker', 'Partenaires');
+$partenaires_titre = cms_texte('accueil_partenaires_titre', 'Un réseau institutionnel et académique solide');
 
 $fondateur_photo = cms_texte('accueil_fondateur_photo', 'fondateur-hamadou-hamidou.jpg');
 $fondateur_nom = cms_texte('accueil_fondateur_nom', 'M. Hamadou Hamidou');
@@ -51,7 +80,9 @@ $fondateur_fonction = cms_texte('accueil_fondateur_fonction', "Fondateur de l'IA
 $fondateur_titre = cms_texte('accueil_fondateur_titre', "Une ambition : révéler le potentiel de la jeunesse africaine");
 $fondateur_texte_1 = cms_texte('accueil_fondateur_texte_1', "Depuis 1999, l'Institut Africain de Technologie poursuit une seule ambition : offrir à la jeunesse nigérienne et africaine une formation à la hauteur de son potentiel. Nos quatre valeurs — l'excellence, la qualité, la transparence et l'ouverture au monde — se lisent dans nos accréditations CAMES, dans nos laboratoires et dans les carrières de nos 30 000 diplômés.");
 $fondateur_texte_2 = cms_texte('accueil_fondateur_texte_2', "Choisir l'IAT, c'est rejoindre une institution qui investit continuellement dans ses infrastructures, son corps enseignant et ses partenariats internationaux, pour que chaque étudiant reparte avec bien plus qu'un diplôme : un métier, une méthode et un réseau.");
+$fondateur_kicker = cms_texte('accueil_fondateur_kicker', 'Le mot du Fondateur');
 $fondateur_points = cms_texte_extra('accueil_fondateur_points')['items'] ?? ['30 000+ diplômés', '16 diplômes CAMES', 'Depuis 1999'];
+$fondateur_btn = cms_texte('accueil_fondateur_btn', "Découvrir l'institut");
 
 $hero_card1_titre = cms_texte('accueil_hero_card1_titre', '30 000+');
 $hero_card1_sous = cms_texte('accueil_hero_card1_sous', 'diplômés depuis 1999');
@@ -93,8 +124,8 @@ require __DIR__ . '/includes/header.php';
       ?></h1>
       <p class="lead"><?= e($hero_lead) ?></p>
       <div class="hero-actions">
-        <a class="btn btn-primary btn-lg" href="<?= url('admission#preinscription') ?>">Je m'inscris maintenant <?= icon('arrow-right', 18) ?></a>
-        <a class="btn btn-outline btn-lg" href="<?= url('formations') ?>">Découvrir les formations</a>
+        <a class="btn btn-primary btn-lg" href="<?= url('admission#preinscription') ?>"><?= e($hero_btn1) ?> <?= icon('arrow-right', 18) ?></a>
+        <a class="btn btn-outline btn-lg" href="<?= url('formations') ?>"><?= e($hero_btn2) ?></a>
       </div>
       <ul class="hero-trust">
         <?php foreach ($hero_trust as $t) : ?>
@@ -151,9 +182,9 @@ require __DIR__ . '/includes/header.php';
 <section class="section" id="pourquoi">
   <div class="container">
     <div class="section-head centered reveal">
-      <span class="kicker"><?= icon('sparkles', 15) ?> Pourquoi choisir l'IAT ?</span>
-      <h2>Une formation d'excellence, reconnue en Afrique et au-delà</h2>
-      <p class="lead">Quatre valeurs guident l'institut depuis sa création : l'excellence, la qualité, la transparence et l'ouverture au monde.</p>
+      <span class="kicker"><?= icon('sparkles', 15) ?> <?= e($pourquoi_kicker) ?></span>
+      <h2><?= e($pourquoi_titre) ?></h2>
+      <p class="lead"><?= e($pourquoi_lead) ?></p>
     </div>
     <div class="grid-3">
       <?php foreach ($cartes_pourquoi as $i => $c) : ?>
@@ -179,7 +210,7 @@ require __DIR__ . '/includes/header.php';
         </div>
       </div>
       <div class="fondateur-content">
-        <span class="fondateur-kicker"><?= icon('quote', 16) ?> Le mot du Fondateur</span>
+        <span class="fondateur-kicker"><?= icon('quote', 16) ?> <?= e($fondateur_kicker) ?></span>
         <h2><?= e($fondateur_titre) ?></h2>
         <p class="fondateur-citation"><?= e($fondateur_texte_1) ?></p>
         <p class="fondateur-texte"><?= e($fondateur_texte_2) ?></p>
@@ -189,7 +220,7 @@ require __DIR__ . '/includes/header.php';
             <li><?= icon('check-circle', 17) ?> <?= e($pt) ?></li>
             <?php endforeach; ?>
           </ul>
-          <a class="btn btn-accent" href="<?= url('a-propos') ?>">Découvrir l'institut <?= icon('arrow-right', 16) ?></a>
+          <a class="btn btn-accent" href="<?= url('a-propos') ?>"><?= e($fondateur_btn) ?> <?= icon('arrow-right', 16) ?></a>
         </div>
       </div>
     </div>
@@ -200,9 +231,9 @@ require __DIR__ . '/includes/header.php';
 <section class="section section-alt" id="programmes">
   <div class="container">
     <div class="section-head reveal">
-      <span class="kicker"><?= icon('graduation-cap', 15) ?> Nos programmes</span>
-      <h2>Du BEPC au Doctorat, un parcours complet</h2>
-      <p class="lead">28 filières tertiaires et industrielles, organisées en quatre niveaux pour accompagner chaque étape de votre parcours.</p>
+      <span class="kicker"><?= icon('graduation-cap', 15) ?> <?= e($programmes_kicker) ?></span>
+      <h2><?= e($programmes_titre) ?></h2>
+      <p class="lead"><?= e($programmes_lead) ?></p>
     </div>
     <div class="grid-4">
       <?php
@@ -234,7 +265,7 @@ require __DIR__ . '/includes/header.php';
 <section class="section section-csp" aria-labelledby="csp-titre">
   <div class="container section-csp-inner">
     <div class="section-csp-copy reveal">
-      <span class="kicker"><?= icon('school', 15) ?> Groupe IAT</span>
+      <span class="kicker"><?= icon('school', 15) ?> <?= e($csp_kicker) ?></span>
       <h2 id="csp-titre"><?= e($csp_titre) ?></h2>
       <p class="lead"><?= e($csp_texte) ?></p>
       <ul class="check-list">
@@ -243,17 +274,17 @@ require __DIR__ . '/includes/header.php';
         <?php endforeach; ?>
       </ul>
       <div class="hero-actions">
-        <a class="btn btn-accent btn-lg" href="<?= url('csp-algoza') ?>">Découvrir le CSP Algoza <?= icon('arrow-right', 18) ?></a>
-        <a class="btn btn-ghost-light btn-lg" href="<?= url('contact') ?>">Nous contacter</a>
+        <a class="btn btn-accent btn-lg" href="<?= url('csp-algoza') ?>"><?= e($csp_btn1) ?> <?= icon('arrow-right', 18) ?></a>
+        <a class="btn btn-ghost-light btn-lg" href="<?= url('contact') ?>"><?= e($csp_btn2) ?></a>
       </div>
     </div>
     <div class="section-csp-visual reveal reveal-delay-1">
       <figure class="section-csp-frame">
-        <img src="<?= asset('img/campus/immeuble-iat.jpg') ?>" alt="Campus du Groupe IAT — Institut Africain de Technologie et CSP Algoza à Niamey" loading="lazy" width="700" height="500">
+        <img src="<?= asset('img/' . ltrim($csp_image, '/')) ?>" alt="Campus du Groupe IAT — Institut Africain de Technologie et CSP Algoza à Niamey" loading="lazy" width="700" height="500">
       </figure>
       <div class="section-csp-badge" aria-hidden="true">
         <?= icon('award', 20) ?>
-        <div><strong>Maternelle → Bac</strong><small>Excellence dès le plus jeune âge</small></div>
+        <div><strong><?= e($csp_badge_titre) ?></strong><small><?= e($csp_badge_sous) ?></small></div>
       </div>
     </div>
   </div>
@@ -264,10 +295,10 @@ require __DIR__ . '/includes/header.php';
   <div class="container">
     <div class="section-head reveal" style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:1rem; max-width:none;">
       <div>
-        <span class="kicker"><?= icon('newspaper', 15) ?> Actualités</span>
-        <h2>La vie de l'institut</h2>
+        <span class="kicker"><?= icon('newspaper', 15) ?> <?= e($actus_kicker) ?></span>
+        <h2><?= e($actus_titre) ?></h2>
       </div>
-      <a class="btn btn-outline" href="<?= url('actualites') ?>">Toutes les actualités <?= icon('arrow-right', 16) ?></a>
+      <a class="btn btn-outline" href="<?= url('actualites') ?>"><?= e($actus_btn) ?> <?= icon('arrow-right', 16) ?></a>
     </div>
     <div class="grid-3">
       <?php foreach ($dernieres_actus as $i => $actu) : ?>
@@ -293,8 +324,8 @@ require __DIR__ . '/includes/header.php';
 <section class="section temoignages-section" id="temoignages">
   <div class="container" data-carousel>
     <div class="section-head reveal">
-      <span class="kicker"><?= icon('quote', 15) ?> Ils nous font confiance</span>
-      <h2>La parole à nos anciens</h2>
+      <span class="kicker"><?= icon('quote', 15) ?> <?= e($temoignages_kicker) ?></span>
+      <h2><?= e($temoignages_titre) ?></h2>
     </div>
     <div class="testimonial-track" tabindex="0" aria-label="Témoignages d'anciens étudiants — utilisez les flèches pour naviguer">
       <?php foreach ($temoignages_accueil as $t) : ?>
@@ -320,17 +351,18 @@ require __DIR__ . '/includes/header.php';
   <div class="container">
     <div class="section-head reveal" style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:1rem; max-width:none;">
       <div>
-        <span class="kicker"><?= icon('image', 15) ?> Galerie</span>
-        <h2>Le campus en images</h2>
+        <span class="kicker"><?= icon('image', 15) ?> <?= e($galerie_kicker) ?></span>
+        <h2><?= e($galerie_titre) ?></h2>
       </div>
-      <a class="btn btn-outline" href="<?= url('galerie') ?>">Voir toute la galerie <?= icon('arrow-right', 16) ?></a>
+      <a class="btn btn-outline" href="<?= url('galerie') ?>"><?= e($galerie_btn) ?> <?= icon('arrow-right', 16) ?></a>
     </div>
     <?php
-    $galerie_accueil_prefer = [
+    $galerie_accueil_prefer = cms_texte_extra('accueil_galerie_photos')['items'] ?? [
         'recentes/photo-48.jpg', 'recentes/photo-20.jpg', 'recentes/photo-26.jpg',
         'recentes/photo-17.jpg', 'recentes/photo-21.jpg', 'recentes/photo-49.jpg',
         'recentes/photo-12.jpg', 'campus/immeuble-iat.jpg',
     ];
+    $galerie_accueil_prefer = array_values(array_filter(array_map('trim', $galerie_accueil_prefer), static fn ($src) => $src !== ''));
     $galerie_cms = cms_galerie();
     $by_src = [];
     foreach ($galerie_cms as $p) {
@@ -344,16 +376,6 @@ require __DIR__ . '/includes/header.php';
             $galerie_accueil[] = $by_src[$src];
         } elseif (is_file(__DIR__ . '/assets/img/' . $src)) {
             $galerie_accueil[] = ['src' => $src, 'legende' => 'IAT Niger'];
-        }
-    }
-    if (count($galerie_accueil) < 8) {
-        foreach ($galerie_cms as $p) {
-            if (count($galerie_accueil) >= 8) {
-                break;
-            }
-            if (!in_array($p['src'], $galerie_accueil_prefer, true)) {
-                $galerie_accueil[] = $p;
-            }
         }
     }
     ?>
@@ -377,8 +399,8 @@ require __DIR__ . '/includes/header.php';
 <section class="section section-alt" id="partenaires">
   <div class="container">
     <div class="section-head centered reveal">
-      <span class="kicker"><?= icon('handshake', 15) ?> Partenaires</span>
-      <h2>Un réseau institutionnel et académique solide</h2>
+      <span class="kicker"><?= icon('handshake', 15) ?> <?= e($partenaires_kicker) ?></span>
+      <h2><?= e($partenaires_titre) ?></h2>
     </div>
     <div class="partner-strip reveal">
       <?php foreach ($partenaires_strip as $p) : ?>

@@ -163,3 +163,4 @@ function csrf_check(?string $token): bool
 require_once __DIR__ . '/../constants/formations.php';
 require_once __DIR__ . '/../constants/actualites.php';
 require_once __DIR__ . '/../includes/cms.php';
+require_once __DIR__ . '/../includes/cms-page-textes.php';
