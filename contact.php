@@ -150,8 +150,8 @@ require __DIR__ . '/includes/page-hero.php';
       <span class="kicker"><?= icon('map-pin', 15) ?> Localisation</span>
       <h2 class="h3"><?= e(setting('contact_map_titre', 'Rond-point Gadafawa, Yantala — Niamey')) ?></h2>
     </div>
-    <iframe class="map-embed reveal" src="https://www.openstreetmap.org/export/embed.html?bbox=2.075%2C13.520%2C2.135%2C13.560&amp;layer=mapnik&amp;marker=13.540%2C2.105" title="Carte de localisation de l'IAT Niger à Niamey" loading="lazy"></iframe>
-    <p class="caption" style="margin-top: 0.8rem;"><a href="https://www.openstreetmap.org/?mlat=13.540&amp;mlon=2.105#map=15/13.540/2.105" target="_blank" rel="noopener">Ouvrir la carte en grand <?= icon('external-link', 13) ?></a></p>
+    <iframe class="map-embed reveal" src="https://www.openstreetmap.org/export/embed.html?bbox=2.066680%2C13.522711%2C2.096680%2C13.542711&amp;layer=mapnik&amp;marker=13.532711%2C2.081680" title="Carte de localisation de l'IAT Niger à Niamey" loading="lazy"></iframe>
+    <p class="caption" style="margin-top: 0.8rem;"><a href="https://www.openstreetmap.org/?mlat=13.532711&amp;mlon=2.081680#map=16/13.532711/2.081680" target="_blank" rel="noopener">Ouvrir la carte en grand <?= icon('external-link', 13) ?></a></p>
   </div>
 </section>
 
