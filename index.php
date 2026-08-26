@@ -322,26 +322,35 @@ require __DIR__ . '/includes/header.php';
 
 <!-- ============ TÉMOIGNAGES ============ -->
 <section class="section temoignages-section" id="temoignages">
-  <div class="container" data-carousel>
-    <div class="section-head reveal">
-      <span class="kicker"><?= icon('quote', 15) ?> <?= e($temoignages_kicker) ?></span>
-      <h2><?= e($temoignages_titre) ?></h2>
+  <div class="container">
+    <div class="testimonial-head reveal">
+      <div class="section-head">
+        <span class="kicker"><?= icon('quote', 15) ?> <?= e($temoignages_kicker) ?></span>
+        <h2><?= e($temoignages_titre) ?></h2>
+      </div>
+      <div class="carousel-controls" data-carousel-controls hidden aria-hidden="true">
+        <button class="icon-btn" type="button" data-prev aria-label="Témoignage précédent"><?= icon('chevron-right', 20, 'flip-x') ?></button>
+        <button class="icon-btn" type="button" data-next aria-label="Témoignage suivant"><?= icon('chevron-right', 20) ?></button>
+      </div>
     </div>
-    <div class="testimonial-track" tabindex="0" aria-label="Témoignages d'anciens étudiants — utilisez les flèches pour naviguer">
+  </div>
+  <div class="testimonial-carousel" data-carousel>
+    <div class="testimonial-track" tabindex="0" aria-label="Témoignages d'anciens étudiants — faites défiler horizontalement">
       <?php foreach ($temoignages_accueil as $t) : ?>
       <article class="card testimonial">
-        <span class="quote-icon"><?= icon('quote', 28) ?></span>
+        <span class="quote-icon" aria-hidden="true"><?= icon('quote', 24) ?></span>
         <blockquote>« <?= e($t['citation']) ?> »</blockquote>
         <div class="testimonial-author">
+          <?php if (!empty($t['initiales'])) : ?>
           <span class="avatar" aria-hidden="true"><?= e($t['initiales']) ?></span>
-          <div><strong><?= e($t['auteur']) ?></strong><small><?= e($t['fonction']) ?></small></div>
+          <?php endif; ?>
+          <div>
+            <?php if (!empty($t['auteur'])) : ?><strong><?= e($t['auteur']) ?></strong><?php endif; ?>
+            <?php if (!empty($t['fonction'])) : ?><small><?= e($t['fonction']) ?></small><?php endif; ?>
+          </div>
         </div>
       </article>
       <?php endforeach; ?>
-    </div>
-    <div class="carousel-controls">
-      <button class="icon-btn" type="button" data-prev aria-label="Témoignage précédent"><?= icon('chevron-right', 20, 'flip-x') ?></button>
-      <button class="icon-btn" type="button" data-next aria-label="Témoignage suivant"><?= icon('chevron-right', 20) ?></button>
     </div>
   </div>
 </section>

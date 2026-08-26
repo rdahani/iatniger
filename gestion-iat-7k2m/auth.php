@@ -234,7 +234,7 @@ function admin_head(string $titre): void
   }
 })();
 window.IAT_ADMIN = {
-  assetBase: <?= json_encode(rtrim(SITE_URL, '/') . '/assets/') ?>,
+  assetBase: <?= json_encode(path_base() . '/assets/') ?>,
   mediaApi: <?= json_encode(url('admin/api-medias.php')) ?>,
   iconsApi: <?= json_encode(url('admin/api-icons.php')) ?>,
   uploadApi: <?= json_encode(url('admin/api-upload.php')) ?>,

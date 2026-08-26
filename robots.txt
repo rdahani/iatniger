@@ -5,4 +5,4 @@ Disallow: /includes/
 Disallow: /constants/
 Disallow: /database/
 
-Sitemap: http://localhost/iatniger/sitemap.php
+Sitemap: https://iatniger.org/sitemap.php

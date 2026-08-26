@@ -63,6 +63,23 @@ if (!defined('DB_PASS')) {
     define('DB_PASS', '');
 }
 
+/*
+ * URL de l'application SoftIAT (gestion scolaire).
+ * Surcharge dans config.local.php / config.production.php.
+ */
+if (!defined('SOFTIAT_BASE_URL')) {
+    define('SOFTIAT_BASE_URL', 'http://localhost/softiat');
+}
+
+/** Lien vers la fiche préinscription web dans SoftIAT. */
+function softiat_preinscription_url(int $id): string
+{
+    if ($id <= 0 || !defined('SOFTIAT_BASE_URL') || SOFTIAT_BASE_URL === '') {
+        return '';
+    }
+    return rtrim(SOFIAT_BASE_URL, '/') . '/modules/preinscriptions_web/view.php?id=' . $id;
+}
+
 /**
  * Connexion PDO partagée.
  * Retourne null si la base est indisponible : les pages publiques
@@ -110,21 +127,31 @@ if (!defined('ADMIN_SLUG')) {
     define('ADMIN_SLUG', 'gestion-iat-7k2m');
 }
 
-/** URL absolue interne. */
+/** Préfixe chemin site (/ ou /iatniger). */
+function path_base(): string
+{
+    $base = rtrim(SITE_BASE, '/');
+    return $base !== '' ? $base : '';
+}
+
+/** URL absolue interne (canonical, Open Graph, redirections). */
 function url(string $path = ''): string
 {
     $path = ltrim($path, '/');
     if ($path === 'admin' || str_starts_with($path, 'admin/')) {
         $path = ADMIN_SLUG . substr($path, 5);
     }
-    return rtrim(SITE_URL, '/') . '/' . $path;
+    return rtrim(SITE_URL, '/') . ($path !== '' ? '/' . $path : '/');
 }
 
-/** URL d'un asset. CSS/JS : version basée sur la date du fichier (cache-busting). */
+/**
+ * URL d'un asset — chemin relatif à la racine du site (même domaine que la page).
+ * Évite les assets cross-domain quand config.local.php est présent en local.
+ */
 function asset(string $path): string
 {
     $path = ltrim($path, '/');
-    $u = url('assets/' . $path);
+    $u = path_base() . '/assets/' . $path;
     if (preg_match('/\.(css|js)$/', $path)) {
         $abs = dirname(__DIR__) . '/assets/' . $path;
         if (is_file($abs)) {

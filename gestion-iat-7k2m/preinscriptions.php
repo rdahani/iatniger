@@ -56,7 +56,12 @@ admin_head('Préinscriptions');
                 · reçu le <?= e($p['recu_le']) ?>
               </p>
             </div>
-            <div style="display: flex; gap: 0.4rem; align-items: flex-start;">
+            <div style="display: flex; gap: 0.4rem; align-items: flex-start; flex-wrap: wrap;">
+              <?php
+              $softiatUrl = function_exists('softiat_preinscription_url') ? softiat_preinscription_url((int) $p['id']) : '';
+              if ($softiatUrl !== '') : ?>
+              <a class="btn btn-primary" href="<?= e($softiatUrl) ?>" target="_blank" rel="noopener"><?= icon('external-link', 16) ?> SoftIAT</a>
+              <?php endif; ?>
               <?php if ((int) $p['traite'] === 0) : ?>
               <form method="post" action="">
                 <input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>">

@@ -201,17 +201,44 @@
 
   /* ---------- Carousel témoignages ---------- */
   document.querySelectorAll('[data-carousel]').forEach(function (wrap) {
+    var section = wrap.closest('.temoignages-section');
     var track = wrap.querySelector('.testimonial-track');
-    var prev = wrap.querySelector('[data-prev]');
-    var next = wrap.querySelector('[data-next]');
+    var controls = section ? section.querySelector('[data-carousel-controls]') : null;
+    var prev = controls ? controls.querySelector('[data-prev]') : null;
+    var next = controls ? controls.querySelector('[data-next]') : null;
     if (!track) { return; }
+
+    var updateScrollState = function () {
+      var maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+      var sl = track.scrollLeft;
+      wrap.classList.toggle('can-scroll-left', sl > 6);
+      wrap.classList.toggle('can-scroll-right', sl < maxScroll - 6);
+      if (prev) { prev.disabled = sl <= 6; }
+      if (next) { next.disabled = sl >= maxScroll - 6; }
+      if (controls) {
+        var showControls = maxScroll > 6;
+        controls.hidden = !showControls;
+        if (showControls) {
+          controls.removeAttribute('aria-hidden');
+        } else {
+          controls.setAttribute('aria-hidden', 'true');
+        }
+      }
+    };
+
     var scrollBy = function (dir) {
-      var card = track.firstElementChild;
-      var w = card ? card.getBoundingClientRect().width + 24 : 400;
+      var card = track.querySelector('.testimonial');
+      if (!card) { return; }
+      var gap = parseFloat(getComputedStyle(track).gap) || 18;
+      var w = card.getBoundingClientRect().width + gap;
       track.scrollBy({ left: dir * w, behavior: 'smooth' });
     };
+
     if (prev) { prev.addEventListener('click', function () { scrollBy(-1); }); }
     if (next) { next.addEventListener('click', function () { scrollBy(1); }); }
+    track.addEventListener('scroll', updateScrollState, { passive: true });
+    window.addEventListener('resize', updateScrollState);
+    updateScrollState();
   });
 
   /* ---------- Lightbox galerie ---------- */

@@ -1,9 +1,9 @@
-# IAT Niger — URLs propres & sécurité (Apache / XAMPP local)
+# IAT Niger — URLs propres & sécurité (production iatniger.org)
 Options -Indexes
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteBase /iatniger/
+  RewriteBase /
 
   # Fichiers/dossiers réels servis directement
   RewriteCond %{REQUEST_FILENAME} -f [OR]
@@ -43,4 +43,4 @@ Options -Indexes
   ExpiresByType application/javascript "access plus 1 week"
 </IfModule>
 
-ErrorDocument 404 /iatniger/404.php
+ErrorDocument 404 /404.php
