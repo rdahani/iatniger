@@ -18,7 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-$key = (string) ($_SERVER['HTTP_X_PREINSCRIPTIONS_KEY'] ?? $_GET['key'] ?? '');
+$key = (string) (
+    $_SERVER['HTTP_X_PREINSCRIPTIONS_KEY']
+    ?? $_GET['key']
+    ?? $_POST['key']
+    ?? ''
+);
 $expected = defined('PREINSCRIPTIONS_API_KEY') ? (string) PREINSCRIPTIONS_API_KEY : '';
 
 if ($expected === '' || !hash_equals($expected, $key)) {
