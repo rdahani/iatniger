@@ -77,7 +77,7 @@ function softiat_preinscription_url(int $id): string
     if ($id <= 0 || !defined('SOFTIAT_BASE_URL') || SOFTIAT_BASE_URL === '') {
         return '';
     }
-    return rtrim(SOFIAT_BASE_URL, '/') . '/modules/preinscriptions_web/view.php?id=' . $id;
+    return rtrim(SOFTIAT_BASE_URL, '/') . '/modules/preinscriptions_web/view.php?id=' . $id;
 }
 
 /**
