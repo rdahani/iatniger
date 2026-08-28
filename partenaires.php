@@ -49,7 +49,7 @@ require __DIR__ . '/includes/page-hero.php';
       <?php foreach ($partenaires as $i => $p) : ?>
       <article class="card reveal <?= $i % 4 === 1 ? 'reveal-delay-1' : ($i % 4 === 2 ? 'reveal-delay-2' : ($i % 4 === 3 ? 'reveal-delay-3' : '')) ?>">
         <div class="partner-logo" style="filter: none; opacity: 1; margin-bottom: 1.1rem;">
-          <img src="<?= asset('img/partenaires/' . $p['fichier'] . '.jpg') ?>" alt="Logo <?= e($p['nom']) ?>" loading="lazy" width="120" height="58">
+          <img src="<?= e(cms_partenaire_src($p)) ?>" alt="Logo <?= e($p['nom']) ?>" loading="lazy" width="120" height="58">
         </div>
         <div class="badges" style="margin-bottom: 0.6rem;"><span class="badge badge-primary"><?= e($p['type']) ?></span></div>
         <h3 style="font-size: 1.05rem;"><?= e($p['nom']) ?></h3>

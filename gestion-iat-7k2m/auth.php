@@ -242,6 +242,7 @@ window.IAT_ADMIN = {
 };
 </script>
 <script src="<?= asset('js/admin-pickers.js') ?>" defer></script>
+<script src="<?= asset('js/admin-nav.js') ?>" defer></script>
 </head>
 <body>
     <?php
@@ -293,7 +294,12 @@ function admin_sidebar(string $actif): void
     ];
     $role_label = admin_roles_meta()[admin_role()]['label'] ?? 'Admin';
     ?>
-<aside class="admin-sidebar">
+<button type="button" class="icon-btn admin-nav-toggle" id="admin-nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="admin-sidebar">
+  <span class="icon-menu"><?= icon('menu', 22) ?></span>
+  <span class="icon-close"><?= icon('x', 22) ?></span>
+</button>
+<div class="admin-sidebar-backdrop" id="admin-sidebar-backdrop" aria-hidden="true"></div>
+<aside class="admin-sidebar" id="admin-sidebar">
   <span class="brand-admin">IAT Admin</span>
   <span class="admin-nav-label" style="opacity:0.85;text-transform:none;letter-spacing:0;font-size:0.75rem;"><?= e($_SESSION['admin_nom'] ?? '') ?> · <?= e($role_label) ?></span>
   <?php foreach ($groupes as $groupe => $liens) :

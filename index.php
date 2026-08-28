@@ -411,12 +411,21 @@ require __DIR__ . '/includes/header.php';
       <span class="kicker"><?= icon('handshake', 15) ?> <?= e($partenaires_kicker) ?></span>
       <h2><?= e($partenaires_titre) ?></h2>
     </div>
-    <div class="partner-strip reveal">
-      <?php foreach ($partenaires_strip as $p) : ?>
-      <div class="partner-logo">
-        <img src="<?= asset('img/partenaires/' . $p['fichier'] . '.jpg') ?>" alt="Logo <?= e($p['nom']) ?>" loading="lazy" width="120" height="58">
+    <div class="partner-carousel reveal" data-partner-carousel>
+      <div class="partner-track">
+        <?php for ($partner_pass = 0; $partner_pass < 2; $partner_pass++) : ?>
+        <div class="partner-track-group"<?= $partner_pass === 1 ? ' aria-hidden="true"' : '' ?>>
+          <?php foreach ($partenaires_strip as $p) :
+              $src = cms_partenaire_src($p); ?>
+          <div class="partner-logo">
+            <?php if ($src !== '') : ?>
+            <img src="<?= e($src) ?>" alt="<?= $partner_pass === 1 ? '' : 'Logo ' . e($p['nom']) ?>" loading="lazy" width="120" height="58">
+            <?php endif; ?>
+          </div>
+          <?php endforeach; ?>
+        </div>
+        <?php endfor; ?>
       </div>
-      <?php endforeach; ?>
     </div>
   </div>
 </section>

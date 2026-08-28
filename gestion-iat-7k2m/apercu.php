@@ -123,7 +123,7 @@ admin_head('Aperçu du site');
       </div>
     </div>
 
-    <div style="display: grid; grid-template-columns: minmax(260px, 340px) 1fr; gap: 1.2rem; align-items: start;">
+    <div class="admin-apercu-grid">
       <div class="admin-card">
         <h2 class="h3" style="margin-bottom: 0.4rem;">Que peut-on modifier ici ?</h2>
         <p class="caption" style="margin-bottom: 1rem;">Page « <?= $courante['label'] ?> » : cliquez sur une zone pour ouvrir l'écran d'édition correspondant.</p>
@@ -140,9 +140,7 @@ admin_head('Aperçu du site');
       </div>
 
       <div class="admin-card" style="padding: 0.6rem;">
-        <iframe src="<?= url($page) ?>" title="Aperçu : <?= e($courante['label']) ?>"
-                style="width: 100%; height: min(78vh, 900px); border: 0; border-radius: var(--radius-md, 10px); background: #fff;"
-                loading="lazy"></iframe>
+        <iframe class="admin-apercu-frame" src="<?= url($page) ?>" title="Aperçu : <?= e($courante['label']) ?>" loading="lazy"></iframe>
       </div>
     </div>
 

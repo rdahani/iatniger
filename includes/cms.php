@@ -243,6 +243,54 @@ function cms_faq(): array
     return [];
 }
 
+/**
+ * URL publique d'une image CMS.
+ * Accepte une URL absolue, un chemin sous assets/img/ (convention),
+ * ou un fichier déposé dans assets/uploads/.
+ */
+function cms_img(?string $chemin, string $defaut = ''): string
+{
+    $chemin = trim((string) $chemin);
+    if ($chemin === '') {
+        $chemin = $defaut;
+    }
+    if ($chemin === '') {
+        return '';
+    }
+    if (preg_match('#^(https?:)?//#i', $chemin)) {
+        return $chemin;
+    }
+    $chemin = ltrim(str_replace('\\', '/', $chemin), '/');
+    if (str_starts_with($chemin, 'assets/')) {
+        $chemin = substr($chemin, 7);
+    }
+    if (str_starts_with($chemin, 'img/')) {
+        return asset($chemin);
+    }
+
+    $root = dirname(__DIR__);
+    $sousImg = $root . '/assets/img/' . $chemin;
+    $sousAssets = $root . '/assets/' . $chemin;
+    if (is_file($sousImg) || !is_file($sousAssets)) {
+        return asset('img/' . $chemin);
+    }
+    return asset($chemin);
+}
+
+/** URL du logo d'un partenaire (image téléversée, sinon fichier historique). */
+function cms_partenaire_src(array $p): string
+{
+    if (!empty($p['src'])) {
+        return (string) $p['src'];
+    }
+    $image = trim((string) ($p['image'] ?? ''));
+    $fichier = trim((string) ($p['fichier'] ?? ''));
+    if ($image === '' && $fichier !== '') {
+        $image = 'partenaires/' . $fichier . '.jpg';
+    }
+    return cms_img($image);
+}
+
 /** Partenaires. */
 function cms_partenaires(): array
 {
@@ -251,12 +299,18 @@ function cms_partenaires(): array
         return [];
     }
     return array_map(static function (array $i): array {
+        $fichier = $i['extra']['fichier'] ?? pathinfo((string) $i['image'], PATHINFO_FILENAME);
+        $image = trim((string) ($i['image'] ?? ''));
+        if ($image === '' && $fichier !== '') {
+            $image = 'partenaires/' . $fichier . '.jpg';
+        }
         return [
-            'fichier' => $i['extra']['fichier'] ?? pathinfo((string) $i['image'], PATHINFO_FILENAME),
+            'fichier' => $fichier,
             'nom' => $i['titre'],
             'type' => $i['sous_titre'] ?? '',
             'desc' => $i['contenu'] ?? '',
-            'image' => $i['image'],
+            'image' => $image,
+            'src' => cms_img($image, $fichier !== '' ? 'partenaires/' . $fichier . '.jpg' : ''),
         ];
     }, $items);
 }

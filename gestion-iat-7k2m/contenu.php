@@ -47,9 +47,9 @@ function contenu_type_config(string $type): array
                 'titre' => ['label' => 'Nom du partenaire', 'type' => 'text', 'requis' => true],
                 'sous_titre' => ['label' => 'Type (Institutionnel, Académique, Entrepreneuriat…)', 'type' => 'text'],
                 'contenu' => ['label' => 'Description', 'type' => 'textarea'],
-                'image' => ['label' => 'Logo / image', 'type' => 'media', 'base' => 'img'],
+                'image' => ['label' => 'Logo / image', 'type' => 'media', 'base' => 'img', 'requis' => true],
             ],
-            'extra_fields' => ['fichier' => 'Nom de fichier (sans extension)'],
+            'extra_fields' => ['fichier' => 'Identifiant historique (optionnel, laisser vide)'],
         ],
         'galerie' => [
             'label' => 'Galerie', 'sidebar' => 'galerie', 'nouveau' => 'une photo',
