@@ -15,7 +15,7 @@ $breadcrumbs = [
     ['label' => 'Confidentialité de l\'application', 'url' => url('confidentialite-application')],
 ];
 $hero_titre = "Confidentialité de l'application mobile";
-$hero_texte = 'Dernière mise à jour : 12 octobre 2026';
+$hero_texte = 'Dernière mise à jour : 16 octobre 2026';
 
 require __DIR__ . '/includes/header.php';
 require __DIR__ . '/includes/page-hero.php';
@@ -42,13 +42,14 @@ require __DIR__ . '/includes/page-hero.php';
         <li><strong>Matricule de l'étudiant et mot de passe</strong> : pour vous identifier. Le mot de passe n'est jamais conservé sur le téléphone ; le serveur n'en garde qu'une empreinte chiffrée.</li>
         <li><strong>Numéro de téléphone déjà enregistré à l'inscription</strong> (étudiant ou parent) : pour envoyer par SMS le code de première connexion ou de mot de passe oublié.</li>
         <li><strong>Identifiant technique de l'installation, type d'appareil, adresse IP</strong> : pour sécuriser la session et permettre de la révoquer.</li>
+        <li><strong>Notifications (facultatives)</strong> : un identifiant de notification attribué au téléphone par Google Firebase Cloud Messaging, pour prévenir d'un nouveau paiement, d'une absence ou de nouvelles notes. La notification ne contient ni note ni montant : seulement le prénom de l'étudiant et, pour les notes, le nom des matières. Vous pouvez la refuser ou la désactiver à tout moment dans les réglages du téléphone ; l'application fonctionne sans.</li>
       </ul>
       <p>Les informations affichées (nom, classe, notes, absences, paiements, emploi du temps) sont celles que l'institut détient déjà dans son système de gestion de la scolarité. L'application les affiche ; elle n'en collecte pas de nouvelles.</p>
 
       <h2>Ce que l'application ne fait pas</h2>
       <ul>
         <li>Pas de publicité, pas de traceur publicitaire, pas d'outil de mesure d'audience.</li>
-        <li>Aucune donnée n'est vendue ni transmise à des tiers. Seul notre prestataire d'envoi de SMS reçoit le numéro de téléphone et le texte du code de vérification.</li>
+        <li>Aucune donnée n'est vendue ni transmise à des tiers. Seuls nos prestataires techniques interviennent : le prestataire d'envoi de SMS reçoit le numéro de téléphone et le code de vérification ; Google Firebase Cloud Messaging achemine les notifications (identifiant de notification et texte court de l'alerte).</li>
         <li>Pas d'accès aux contacts, à la position, aux photos, au micro ni à la caméra.</li>
       </ul>
 
